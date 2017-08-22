@@ -1,0 +1,7 @@
+.app {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  margin: 30px 20%;
+
+}
