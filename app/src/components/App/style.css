@@ -1,7 +1,18 @@
 .app {
   display: flex;
   flex-flow: column nowrap;
-  justify-content: center;
+  align-items: center;
   margin: 30px 20%;
 
+}
+.button {
+  margin-top: 15px;
+  min-width: 200px;
+  max-width: 450px;
+}
+.results {
+  background-color: lightblue;
+  margin-top: 40px;
+  min-width: 300px;
+  padding: 20px;
 }

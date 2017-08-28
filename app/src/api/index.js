@@ -21,10 +21,16 @@ export const fetchJson = (url, options = {}) => (
 );
 
 export default {
-  members: {
-    readList() {
+  result: {
+    create() {
       return fetchJson(
-        '/members',
+        '/result',
+        { method: 'POST' }
+      );
+    },
+    read() {
+      return fetchJson(
+        '/result',
         { method: 'GET' }
       )
         .then((data) => {
@@ -32,23 +38,17 @@ export default {
           // return ?
         });
     },
-    create() {
+    update(id, result) {
       return fetchJson(
-        '/members',
-        { method: 'POST' }
-      );
-    },
-    update(id, member) {
-      return fetchJson(
-        `/members/${id}`,
+        `/result/${id}`,
         {
           method: 'PUT',
-          body: JSON.stringify({ member }) }
+          body: JSON.stringify({ result }) }
       );
     },
     delete(id) {
       return fetchJson(
-        `/members/${id}`,
+        `/result/${id}`,
         {
           method: 'DELETE'
         }

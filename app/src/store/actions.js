@@ -3,21 +3,21 @@ import api from '../api/index'
 /*
     payload must always be an object. If you are passing in a string you must put it in an object: e.g., payload: { value }. If the parameter(s) pass in are already an object then do: e.g., payload: objectName.
  */
- export const updateAllMembers = (members) => ({
-   type: 'app/replaceMembers',
-   payload: members,
+ export const replaceResult = (result) => ({
+   type: 'app/replaceResult',
+   payload: result,
  });
 
- export const createMember = (member) => {
+ export const readResult = (result) => {
   return {
-    type: 'app/createMember',
-    payload: member,
+    type: 'app/readResult',
+    payload: result,
   }
 };
 
-export const updateOneMember = ( _id, firstName, lastName, email ) => {
+export const updateResult = ( _id, firstName, lastName, email ) => {
   return {
-    type: 'app/updateMember',
+    type: 'app/updateResult',
     payload: {
       _id,
       firstName,
@@ -27,8 +27,8 @@ export const updateOneMember = ( _id, firstName, lastName, email ) => {
   }
 }
 
-export const removeMember = (_id) => ({
-  type: 'app/removeMember',
+export const deleteResult = (_id) => ({
+  type: 'app/deleteResult',
   payload: { _id },
 });
 
@@ -44,7 +44,6 @@ export const markRequestSuccess = (key) => {
     meta: { key },
   });
 }
-
 
 export const markRequestFailed = (reason, key) => ({
   type: 'app/markRequestFailed',
@@ -71,26 +70,26 @@ export const createRequestThunk = ({ request, key, start = [], success = [], fai
   };
 };
 
-export const requestGetMemberList = createRequestThunk({
-  request: api.members.readList,
-  key: 'api/getMemberList',
-  success: [ updateAllMembers ]
+export const requestReadResult = createRequestThunk({
+  request: api.result.read,
+  key: 'api/getReadResult',
+  success: [ replaceResult ]
 })
 
-export const requestCreateMember = createRequestThunk({
-  request: api.members.create,
+export const requestCreateResult = createRequestThunk({
+  request: api.result.create,
   key: 'api/createMember',
-  success: [ updateOneMember ],
+  success: [ replaceResult ],
 });
 
 export const requestUpdateMember = createRequestThunk({
-  request: api.members.update,
+  request: api.result.update,
   key: (_id) => `api/updateMember/${_id}`,
-  success: [ updateOneMember ],
+  success: [ replaceResult ],
 })
 
 export const requestDeleteMember = createRequestThunk({
-  request: api.members.delete,
+  request: api.result.delete,
   key: (_id) => `api/deleteMember/${_id}`,
-  success: [ (member) => removeMember(member._id) ],
+  success: [ (result) => deleteResult(result._id) ],
 })

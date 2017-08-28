@@ -1,15 +1,69 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import * as actionCreators from '../../store/actions'
+import * as selectors from '../../store/selectors'
 import { Button } from 'react-bootstrap'
-import './style.css'
+import styles from './style.css'
 
 class App extends Component {
-  render() {
-    return (
-      <div className="app">
-        <Button bsStyle="primary">Get Data</Button>
-      </div>
-    );
+  constructor(props) {
+    super(props)
+    this.state = {
+      resultText: 'Click a button to get started'
+    }
   }
+
+  render() {
+
+    const buttonClick = (name) => {
+      console.log(name)
+      let val = name
+      this.setState({ resultText: val })
+    }
+
+
+    return (
+      <div id="app" className={styles.app}>
+        <Button
+          id="create"
+          className={styles.button}
+          bsStyle="primary"
+          onClick={(event) => buttonClick(event.target.id)}>
+          Create
+        </Button>
+        <Button
+          id="read"
+          className={styles.button}
+          bsStyle="primary"
+          onClick={(event) => buttonClick(event.target.id)}>
+          Read
+        </Button>
+        <Button
+          id="update"
+          className={styles.button}
+          bsStyle="primary"
+          onClick={(event) => buttonClick(event.target.id)}>
+          Update
+        </Button>
+        <Button
+          id="delete"
+          className={styles.button}
+          bsStyle="primary"
+          onClick={(event) => buttonClick(event.target.id)}>
+          Delete
+        </Button>
+        <div className={styles.results}>
+          {this.state.resultText}
+        </div>
+      </div>
+          );
+          }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  const o = {
+    resultText: selectors.getResultText(state)
+  }
+  return o
+}
+export default connect(mapStateToProps, actionCreators)(App);
