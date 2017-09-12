@@ -3,9 +3,9 @@ import api from '../api/index'
 /*
     payload must always be an object. If you are passing in a string you must put it in an object: e.g., payload: { value }. If the parameter(s) pass in are already an object then do: e.g., payload: objectName.
  */
- export const replaceResult = (result) => ({
-   type: 'app/replaceResult',
-   payload: result,
+ export const replaceMembers = (members) => ({
+   type: 'app/replaceMembers',
+   payload: members,
  });
 
  export const readResult = (result) => {
@@ -70,26 +70,30 @@ export const createRequestThunk = ({ request, key, start = [], success = [], fai
   };
 };
 
-export const requestReadResult = createRequestThunk({
-  request: api.result.read,
-  key: 'api/getReadResult',
-  success: [ replaceResult ]
+export const logError = (err) => {
+  console.log(err)
+}
+export const requestReadMembers = createRequestThunk({
+  request: api.members.read,
+  key: 'api/getReadMembers',
+  success: [ replaceMembers ],
+  
 })
 
-export const requestCreateResult = createRequestThunk({
-  request: api.result.create,
-  key: 'api/createMember',
-  success: [ replaceResult ],
-});
-
-export const requestUpdateMember = createRequestThunk({
-  request: api.result.update,
-  key: (_id) => `api/updateMember/${_id}`,
-  success: [ replaceResult ],
-})
-
-export const requestDeleteMember = createRequestThunk({
-  request: api.result.delete,
-  key: (_id) => `api/deleteMember/${_id}`,
-  success: [ (result) => deleteResult(result._id) ],
-})
+// export const requestCreateResult = createRequestThunk({
+//   request: api.result.create,
+//   key: 'api/createMember',
+//   success: [ replaceResult ],
+// });
+//
+// export const requestUpdateMember = createRequestThunk({
+//   request: api.result.update,
+//   key: (_id) => `api/updateMember/${_id}`,
+//   success: [ replaceResult ],
+// })
+//
+// export const requestDeleteMember = createRequestThunk({
+//   request: api.result.delete,
+//   key: (_id) => `api/deleteMember/${_id}`,
+//   success: [ (result) => deleteResult(result._id) ],
+// })

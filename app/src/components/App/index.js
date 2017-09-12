@@ -13,12 +13,18 @@ class App extends Component {
     }
   }
 
+  componentWillMount() {
+    this.props.requestReadMembers()
+  }
+
   render() {
+    const { requestReadMembers } = this.props;
 
     const buttonClick = (name) => {
       console.log(name)
-      let val = name
-      this.setState({ resultText: val })
+      //let val = name
+      //this.setState({ resultText: val })
+      console.log(requestReadMembers)
     }
 
 

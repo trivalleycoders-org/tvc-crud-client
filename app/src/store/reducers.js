@@ -3,6 +3,7 @@ import { merge, prepend, dissoc } from 'ramda'
 import * as ku from '../lib/ke-utils'
 
 export const membersById = ( state = {}, { type, payload }) => {
+  console.log("payload", payload)
   try {
     switch (type) {
       case 'app/updateMemberFormFields':
@@ -12,7 +13,7 @@ export const membersById = ( state = {}, { type, payload }) => {
       case 'app/replaceMembers': // read list load all
         return payload.members
       case 'app/removeMember':
-        return dissoc(payload._id, state)
+        return dissoc(payload.member_id, state)
       default:
         return state
     }

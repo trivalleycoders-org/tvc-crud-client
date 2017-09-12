@@ -21,7 +21,7 @@ export const fetchJson = (url, options = {}) => (
 );
 
 export default {
-  result: {
+  members: {
     create() {
       return fetchJson(
         '/result',
@@ -30,12 +30,13 @@ export default {
     },
     read() {
       return fetchJson(
-        '/result',
+        '/members',
         { method: 'GET' }
       )
         .then((data) => {
-          // What needs to be returned?
-          // return ?
+          let o = data.json()
+          console.log(o)
+          return o
         });
     },
     update(id, result) {
