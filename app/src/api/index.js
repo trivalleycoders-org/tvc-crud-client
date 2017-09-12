@@ -1,3 +1,6 @@
+import { normalize, Schema, arrayOf } from 'normalizr'
+const members = new Schema('members', { idAttribute: '_id'})
+
 export const rejectErrors = (res) => {
   const { status } = res;
   if (status >= 200 && status < 300) {
@@ -34,8 +37,13 @@ export default {
         { method: 'GET' }
       )
         .then((data) => {
-          let o = data.json()
-          console.log(o)
+          // console.log(data)
+          const normalized = normalize(data, arrayOf(members))
+          const o = {
+            members: normalized.entities.members || {},
+            ids: normalized.result,
+          }
+          // console.log(o)
           return o
         });
     },

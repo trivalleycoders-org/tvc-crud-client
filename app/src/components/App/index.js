@@ -4,6 +4,7 @@ import * as actionCreators from '../../store/actions'
 import * as selectors from '../../store/selectors'
 import { Button } from 'react-bootstrap'
 import styles from './style.css'
+import Member from './Member'
 
 class App extends Component {
   constructor(props) {
@@ -18,18 +19,18 @@ class App extends Component {
   }
 
   render() {
-    const { requestReadMembers } = this.props;
+    const { readMembersRequest, members } = this.props;
 
     const buttonClick = (name) => {
-      console.log(name)
+      // console.log(name)
       //let val = name
       //this.setState({ resultText: val })
-      console.log(requestReadMembers)
+      // console.log(requestReadMembers)
     }
 
-
-    return (
-      <div id="app" className={styles.app}>
+    console.log('members', members)
+    const buttons = (
+      <div>
         <Button
           id="create"
           className={styles.button}
@@ -62,13 +63,36 @@ class App extends Component {
           {this.state.resultText}
         </div>
       </div>
-          );
-          }
+    )
+    let renderMembers = ''
+    if (readMembersRequest.status === 'success') {
+      renderMembers = members.map((m) => (
+        <Member
+          key={m._id}
+          _id={m._id}
+          firstName={m.firstName}
+          lastName={m.lastName}
+          email={m.email}
+        />
+      ))
+    } else {
+      renderMembers = (<p>no members yet</p>)
+    }
+
+    return (
+
+      <div id="app" className={styles.app}>
+        {buttons}
+        {renderMembers}
+      </div>
+    );
+  }
 }
 
 const mapStateToProps = (state) => {
   const o = {
-    resultText: selectors.getResultText(state)
+    members: selectors.getMembers(state),
+    readMembersRequest: selectors.getRequest(state, 'api/getReadMembers'),
   }
   return o
 }
