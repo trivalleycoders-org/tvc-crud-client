@@ -77,7 +77,6 @@ export const requestReadMembers = createRequestThunk({
   request: api.members.read,
   key: 'api/getReadMembers',
   success: [ replaceMembers ],
-  
 })
 
 // export const requestCreateResult = createRequestThunk({
@@ -86,12 +85,12 @@ export const requestReadMembers = createRequestThunk({
 //   success: [ replaceResult ],
 // });
 //
-// export const requestUpdateMember = createRequestThunk({
-//   request: api.result.update,
-//   key: (_id) => `api/updateMember/${_id}`,
-//   success: [ replaceResult ],
-// })
-//
+export const requestUpdateMember = createRequestThunk({
+  request: api.members.update,
+  key: (_id) => `api/updateMember/${_id}`,
+  success: [ (members) => replaceMembers() ],
+})
+
 // export const requestDeleteMember = createRequestThunk({
 //   request: api.result.delete,
 //   key: (_id) => `api/deleteMember/${_id}`,

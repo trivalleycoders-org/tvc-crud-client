@@ -10,7 +10,7 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      resultText: 'Click a button to get started'
+      resultText: 'Do nothing to get started. The data should be below. Modify the data in this mosule on line 29 to send a new update. Refresh the page to see the update. That is, it will work once the .put is changed to use a promise like the .get is. After that, we need to have the put return the new data so the UI will update. That probably means re-reading the rows from the db from inside of the put and sending them back.'
     }
   }
 
@@ -22,10 +22,11 @@ class App extends Component {
     const { readMembersRequest, members } = this.props;
 
     const buttonClick = (name) => {
-      // console.log(name)
+      console.log(`button ${name} clicked`)
       //let val = name
       //this.setState({ resultText: val })
       // console.log(requestReadMembers)
+      this.props.requestUpdateMember(10003, 'newemail6@email.com')
     }
 
     console.log('members', members)

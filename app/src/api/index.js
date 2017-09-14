@@ -47,12 +47,13 @@ export default {
           return o
         });
     },
-    update(id, result) {
+    update(id, email) {
+      console.log('members.update: id', id)
       return fetchJson(
-        `/result/${id}`,
+        `/members/${id}`,
         {
           method: 'PUT',
-          body: JSON.stringify({ result }) }
+          body: JSON.stringify({ email }) }
       );
     },
     delete(id) {
