@@ -1,5 +1,5 @@
 import { normalize, Schema, arrayOf } from 'normalizr'
-const members = new Schema('members', { idAttribute: '_id'})
+const members = new Schema('members', { idAttribute: 'member_id'})
 
 export const rejectErrors = (res) => {
   const { status } = res;
@@ -37,7 +37,7 @@ export default {
         { method: 'GET' }
       )
         .then((data) => {
-          // console.log(data)
+          //console.log('read.update: data', data)
           const normalized = normalize(data, arrayOf(members))
           const o = {
             members: normalized.entities.members || {},

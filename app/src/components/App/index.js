@@ -26,7 +26,7 @@ class App extends Component {
       //let val = name
       //this.setState({ resultText: val })
       // console.log(requestReadMembers)
-      this.props.requestUpdateMember(10003, 'newemail6@email.com')
+      this.props.requestUpdateMember(10003, 'newemail8@email.com')
     }
 
     console.log('members', members)
@@ -69,10 +69,10 @@ class App extends Component {
     if (readMembersRequest.status === 'success') {
       renderMembers = members.map((m) => (
         <Member
-          key={m._id}
-          _id={m._id}
-          firstName={m.firstName}
-          lastName={m.lastName}
+          key={m.member_id}
+          member_id={m.member_id}
+          firstName={m.firstname}
+          lastName={m.lastname}
           email={m.email}
         />
       ))

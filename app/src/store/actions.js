@@ -1,36 +1,15 @@
 import api from '../api/index'
-
+import * as ku from '../lib/ke-utils'
 /*
     payload must always be an object. If you are passing in a string you must put it in an object: e.g., payload: { value }. If the parameter(s) pass in are already an object then do: e.g., payload: objectName.
  */
- export const replaceMembers = (members) => ({
-   type: 'app/replaceMembers',
-   payload: members,
- });
-
- export const readResult = (result) => {
-  return {
-    type: 'app/readResult',
-    payload: result,
-  }
-};
-
-export const updateResult = ( _id, firstName, lastName, email ) => {
-  return {
-    type: 'app/updateResult',
-    payload: {
-      _id,
-      firstName,
-      lastName,
-      email,
-    }
-  }
+ export const replaceMembers = (members) => {
+  ku.log('replaceMembers: members', members, 'blue')
+  return({
+    type: 'app/replaceMembers',
+    payload: members,
+  })
 }
-
-export const deleteResult = (_id) => ({
-  type: 'app/deleteResult',
-  payload: { _id },
-});
 
 export const markRequestPending = (key) => ({
   type: 'app/markRequestPending',
@@ -88,7 +67,7 @@ export const requestReadMembers = createRequestThunk({
 export const requestUpdateMember = createRequestThunk({
   request: api.members.update,
   key: (_id) => `api/updateMember/${_id}`,
-  success: [ (members) => replaceMembers() ],
+  success: [ replaceMembers ],
 })
 
 // export const requestDeleteMember = createRequestThunk({
