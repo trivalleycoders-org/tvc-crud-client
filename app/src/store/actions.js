@@ -67,7 +67,7 @@ export const requestReadMembers = createRequestThunk({
 export const requestUpdateMember = createRequestThunk({
   request: api.members.update,
   key: (_id) => `api/updateMember/${_id}`,
-  success: [ replaceMembers ],
+  success: [ requestReadMembers ],
 })
 
 // export const requestDeleteMember = createRequestThunk({

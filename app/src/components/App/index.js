@@ -26,7 +26,7 @@ class App extends Component {
       //let val = name
       //this.setState({ resultText: val })
       // console.log(requestReadMembers)
-      this.props.requestUpdateMember(10003, 'newemail8@email.com')
+      this.props.requestUpdateMember(3, {firstname:'Jack', lastname:'Smith', email:'email8@none.com'})
     }
 
     console.log('members', members)

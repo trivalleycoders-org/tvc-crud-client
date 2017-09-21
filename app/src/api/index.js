@@ -37,7 +37,7 @@ export default {
         { method: 'GET' }
       )
         .then((data) => {
-          //console.log('read.update: data', data)
+          // console.log(data)
           const normalized = normalize(data, arrayOf(members))
           const o = {
             members: normalized.entities.members || {},
@@ -47,13 +47,14 @@ export default {
           return o
         });
     },
-    update(id, email) {
+    update(id, member) {
       console.log('members.update: id', id)
+      console.log('members.update: member', member)
       return fetchJson(
         `/members/${id}`,
         {
           method: 'PUT',
-          body: JSON.stringify({ email }) }
+          body: JSON.stringify({ member }) }
       );
     },
     delete(id) {

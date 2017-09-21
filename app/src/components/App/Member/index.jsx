@@ -1,7 +1,10 @@
 import React from 'react'
 
 const Member = (props) => (
-  <p>{props.member_id}, {props.firstName}, {props.lastName}, {props.email}</p>
+  <div>
+    <p>{props.member_id}, {props.firstName}, {props.lastName}, {props.email}</p>
+    <button>edit</button>
+  </div>
 )
 
 export default Member
