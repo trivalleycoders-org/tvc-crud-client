@@ -1,10 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 import * as actionCreators from '../../store/actions'
 import * as selectors from '../../store/selectors'
 import { Button } from 'react-bootstrap'
 import styles from './style.css'
 import Member from './Member'
+import MemberEdit from './MemberEdit'
+import * as ku from '../../lib/ke-utils'
 
 class App extends Component {
   constructor(props) {
@@ -19,6 +22,7 @@ class App extends Component {
   }
 
   render() {
+    console.log('render', '', 'blue')
     const { readMembersRequest, members } = this.props;
 
     const buttonClick = (name) => {
@@ -28,8 +32,19 @@ class App extends Component {
       // console.log(requestReadMembers)
       this.props.requestUpdateMember(3, {firstname:'Jack', lastname:'Smith', email:'email8@none.com'})
     }
+    let renderMemberEdit = null
+    const handleEditClick = (id) => {
+      ku.log('Member.handleEditClick: id', id, 'blue')
+      const member = members.filter((m) => {
+        return m.member_id === id
+      })
+      renderMemberEdit = <MemberEdit
+        key={id}
+        member={member}
+                         />
 
-    console.log('members', members)
+    }
+
     const buttons = (
       <div>
         <Button
@@ -74,6 +89,7 @@ class App extends Component {
           firstName={m.firstname}
           lastName={m.lastname}
           email={m.email}
+          handleEditClick={handleEditClick}
         />
       ))
     } else {
@@ -85,6 +101,7 @@ class App extends Component {
       <div id="app" className={styles.app}>
         {buttons}
         {renderMembers}
+        {renderMemberEdit}
       </div>
     );
   }

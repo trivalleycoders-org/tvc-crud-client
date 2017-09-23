@@ -1,18 +1,23 @@
+body {
+  background: rgb(40, 40, 40);
+  color: white;
+  font-size: 16px;
+  padding: 0 10%;
+}
+
+:global(.container) {
+  width: auto;
+}
+
 .app {
   display: flex;
   flex-flow: column nowrap;
-  align-items: center;
-  margin: 30px 20%;
-
+  justify-content: center;
 }
-.button {
-  margin-top: 15px;
-  min-width: 200px;
-  max-width: 450px;
-}
-.results {
-  background-color: lightblue;
-  margin-top: 40px;
-  min-width: 300px;
+.header {
+  background-color: darkgray;
   padding: 20px;
+}
+.menuButton {
+  color: black;
 }

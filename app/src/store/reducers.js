@@ -3,7 +3,7 @@ import { merge, prepend, dissoc } from 'ramda'
 import * as ku from '../lib/ke-utils'
 
 export const membersById = ( state = {}, { type, payload }) => {
-  ku.log("payload", payload)
+  // ku.log("payload", payload)
   try {
     switch (type) {
       case 'app/updateMemberFormFields':
@@ -36,6 +36,22 @@ export const membersIds = (state = [], { type, payload }) => {
   }
 }
 
+export const openMemberId = (state = null, { type, payload }) => {
+// *** Maybe name this openMemberId *** see DRE reducer openNoteId ** DO IT!
+// SEE OPEN gedit NOTE
+  switch (type) {
+
+    case 'app/openMember':
+      ku.log('reducers.editMemberId: type', type, 'orange')
+      ku.log('reducers.editMemberId: payload', payload, 'orange')
+      return payload.id
+    case 'app/closeMember':
+      return null
+    default:
+      return state
+  }
+}
+
 export const requests = (state = {}, { type, payload, meta }) => {
   switch (type) {
     case 'app/markRequestPending':
@@ -54,5 +70,6 @@ export default combineReducers({
     membersById,
     membersIds,
   }),
+  openMemberId,
   requests,
 })
