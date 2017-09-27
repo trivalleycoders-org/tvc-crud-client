@@ -8,6 +8,7 @@ export const membersById = ( state = {}, { type, payload }) => {
     switch (type) {
       case 'app/updateMemberFormFields':
       case 'app/updateMember':
+        return merge(state, { [payload.id]: payload })
       case 'app/insertMember': // new/add & update
         return merge(state, { [payload._id]: payload })
       case 'app/replaceMembers': // read list load all

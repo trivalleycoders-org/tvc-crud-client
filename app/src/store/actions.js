@@ -18,6 +18,13 @@ export const openMember = (id) => {
   })
 }
 
+export const updateMember = (member_id, firstname, lastname, email) => {
+  return ({
+    type: 'app/updateMember',
+    payload: { member_id, firstname, lastname, email },
+  })
+}
+
 export const closeMember = () => {
   return ({
     type: 'app/closeMember',

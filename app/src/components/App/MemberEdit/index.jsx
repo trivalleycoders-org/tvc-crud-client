@@ -7,7 +7,7 @@ import * as actionCreators from '../../../store/actions'
 import * as selectors from '../../../store/selectors'
 
 // const MemberEdit = ({ member_id, firstname, lastname, email }) => {
-const MemberEdit = ({ members, openMemberId, closeMember }) => {
+const MemberEdit = ({ members, openMemberId, updateMember, closeMember }) => {
   const member = members.filter((m) => {
     return m.member_id === openMemberId
   })[0]
@@ -20,15 +20,21 @@ const MemberEdit = ({ members, openMemberId, closeMember }) => {
   //   </div>
   // ))
   console.log('member', member)
+  function handleMemberChange(fieldname, value) {
+    console.log('hmc:', fieldname, value);
+    member[fieldname] = value;
+    updateMember(member.member_id, member.firstname, member.lastname, member.email);
+  }
+
   return (
     <div>
       <h2>{member.firstname} {member.lastname}</h2>
       {/* {renderMember} */}
       <div>
-        <input value={member.member_id} />
-        <input value={member.firstname} />
-        <input value={member.lastname} />
-        <input value={member.email} />
+        <input value={member.member_id} disabled />
+        <input value={member.firstname} onChange={(event) => handleMemberChange('firstname', event.target.value)} />
+        <input value={member.lastname} onChange={(event) => handleMemberChange('lastname', event.target.value)} />
+        <input value={member.email} onChange={(event) => handleMemberChange('email', event.target.value)} />
       </div>
       <Link to='/members'><button onClick={() => closeMember()}>Done</button></Link>
 
