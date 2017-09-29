@@ -44,7 +44,7 @@ export const openMemberId = (state = null, { type, payload }) => {
     case 'app/openMember':
       // ku.log('reducers.openMemberId app/openMember: type', type, 'orange')
       // ku.log('reducers.openMemberId app/openMember: payload', payload, 'orange')
-      return payload.id
+      return payload.member_id
     case 'app/closeMember':
       return null
     default:
