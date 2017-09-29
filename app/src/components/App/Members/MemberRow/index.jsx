@@ -1,7 +1,6 @@
 // Member
 
 import React from 'react'
-import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import * as actionCreators from '../../../../store/actions'
 // import * as selectors from '../../../../store/selectors';

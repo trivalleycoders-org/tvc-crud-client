@@ -20,14 +20,14 @@ class Members extends Component {
       )
     }
     // <Link to={`${match.url}/member-edit`}>
-    console.log('members', members)
+    // ku.log('Members: members', members, 'blue')
     const renderMembers = openMemberId === null
       ? members.map((m, index) => (
           <MemberRow
             key={m.member_id}
             member_id={m.member_id}
-            firstname={m.firstname}
-            lastname={m.lastname}
+            firstname={m.first_name}
+            lastname={m.last_name}
             email={m.email}
             editClick={handleEditClick}
           />

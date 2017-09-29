@@ -8,11 +8,12 @@ export const membersById = ( state = {}, { type, payload }) => {
     switch (type) {
       case 'app/updateMemberFormFields':
       case 'app/updateMember':
+        // ku.log("reducers.membersById app/updateMember: payload", payload, 'orange')
         return merge(state, { [payload.id]: payload })
       case 'app/insertMember': // new/add & update
         return merge(state, { [payload._id]: payload })
       case 'app/replaceMembers': // read list load all
-        ku.log("reducers.membersById: payload", payload)
+        // ku.log("reducers.membersById app/replaceMembers: payload", payload, 'orange')
         return payload.members
       case 'app/removeMember':
         return dissoc(payload.member_id, state)
@@ -27,7 +28,7 @@ export const membersById = ( state = {}, { type, payload }) => {
 export const membersIds = (state = [], { type, payload }) => {
   switch (type) {
     case 'app/replaceMembers':
-      ku.log('membersIds.payload', payload, 'orange')
+      // ku.log('reducers.membersIds app/replaceMembers: payload', payload, 'orange')
       return payload.ids
     case 'app/insertMember':
       return prepend(payload._id, state)
@@ -42,10 +43,9 @@ export const openMemberId = (state = null, { type, payload }) => {
 // *** Maybe name this openMemberId *** see DRE reducer openNoteId ** DO IT!
 // SEE OPEN gedit NOTE
   switch (type) {
-
     case 'app/openMember':
-      ku.log('reducers.editMemberId: type', type, 'orange')
-      ku.log('reducers.editMemberId: payload', payload, 'orange')
+      // ku.log('reducers.openMemberId app/openMember: type', type, 'orange')
+      // ku.log('reducers.openMemberId app/openMember: payload', payload, 'orange')
       return payload.id
     case 'app/closeMember':
       return null

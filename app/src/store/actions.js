@@ -1,5 +1,5 @@
 import api from '../api/index'
-import * as ku from '../lib/ke-utils'
+// import * as ku from '../lib/ke-utils'
 /*
     payload must always be an object. If you are passing in a string you must put it in an object: e.g., payload: { value }. If the parameter(s) pass in are already an object then do: e.g., payload: objectName.
  */
@@ -18,7 +18,7 @@ export const openMember = (id) => {
   })
 }
 
-export const updateMember = (member_id, firstname, lastname, email) => {
+export const updateMember = (member_id, firstname, lastname, email, exempt, comment, phone_number) => {
   return ({
     type: 'app/updateMember',
     payload: { member_id, firstname, lastname, email },
@@ -87,7 +87,7 @@ export const requestReadMembers = createRequestThunk({
 export const requestUpdateMember = createRequestThunk({
   request: api.members.update,
   key: (_id) => `api/updateMember/${_id}`,
-  success: [ requestReadMembers ],
+  success: [ updateMember ],
 })
 
 // export const requestDeleteMember = createRequestThunk({
