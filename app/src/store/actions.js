@@ -11,10 +11,10 @@ import api from '../api/index'
   })
 }
 
-export const openMember = (id) => {
+export const openMember = (member_id) => {
   return ({
     type: 'app/openMember',
-    payload: { id },
+    payload: { member_id },
   })
 }
 
