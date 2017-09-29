@@ -8,10 +8,8 @@ export const membersById = ( state = {}, { type, payload }) => {
     switch (type) {
       case 'app/updateMemberFormFields':
       case 'app/updateMember':
-        // ku.log("reducers.membersById app/updateMember: payload", payload, 'orange')
-        return merge(state, { [payload.id]: payload })
       case 'app/insertMember': // new/add & update
-        return merge(state, { [payload._id]: payload })
+        return merge(state, { [payload.member_id]: payload })
       case 'app/replaceMembers': // read list load all
         // ku.log("reducers.membersById app/replaceMembers: payload", payload, 'orange')
         return payload.members
@@ -31,9 +29,9 @@ export const membersIds = (state = [], { type, payload }) => {
       // ku.log('reducers.membersIds app/replaceMembers: payload', payload, 'orange')
       return payload.ids
     case 'app/insertMember':
-      return prepend(payload._id, state)
+      return prepend(payload.member_id, state)
     case 'app/removeMember':
-      return dissoc(payload._id, state)
+      return dissoc(payload.member_id, state)
     default:
       return state
   }
