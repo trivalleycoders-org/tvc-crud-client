@@ -15,19 +15,17 @@ const MemberEdit = ({ members, openMemberId, updateMember, requestUpdateMember, 
 
 
   const handleMemberChange = (fieldname, value) => {
-    ku.log(`MemberEdit: ${fieldname}`, value, 'blue');
+    // ku.log(`MemberEdit: ${fieldname}`, value, 'blue');
     member[fieldname] = value;
 
     updateMember(member.member_id, member.first_name, member.last_name, member.email, member.exempt, member.comment, member.phone_number);
   }
 
-  const close = () => {
-
-  }
+  
   const handleSubmit = (e) => {
-    ku.log('MemberEdit', 'Save was clicked', 'blue')
     e.preventDefault()
-
+    ku.log('MemberEdit.handleSubmit: member.id', member.id, 'blue')
+    ku.log('MemberEdit.handleSubmit: member', member, 'blue')
     requestUpdateMember(member.member_id, member)
   }
 

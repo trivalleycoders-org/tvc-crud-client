@@ -1,5 +1,9 @@
 import { normalize, Schema, arrayOf } from 'normalizr'
+import * as ku from '../lib/ke-utils'
+
+
 const members = new Schema('members', { idAttribute: 'member_id'})
+
 
 export const rejectErrors = (res) => {
   const { status } = res;
@@ -48,8 +52,8 @@ export default {
         });
     },
     update(id, member) {
-      console.log('members.update: id', id)
-      console.log('members.update: member', member)
+      ku.log('api.members.update: id', id, 'yellow')
+      ku.log('api.members.update: member', member, 'yellow')
       return fetchJson(
         `/members/${id}`,
         {

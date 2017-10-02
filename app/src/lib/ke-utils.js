@@ -22,6 +22,10 @@ const stylePink = [
   'color: #ff69b4',
   'font-weight: bold',
 ].join(';');
+const styleYellow = [
+  'color: #ffff00',
+  'font-weight: bold',
+].join(';');
 
 const getStyle = (styleName) => {
   let color;
@@ -40,6 +44,9 @@ const getStyle = (styleName) => {
       break;
     case 'pink':
       color = stylePink;
+      break;
+    case 'yellow':
+      color = styleYellow
       break;
     default:
       color = '';

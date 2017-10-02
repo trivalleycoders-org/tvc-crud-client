@@ -20,6 +20,7 @@ ku.log('message', variable, 'blue')
 - Reducers: 'green'
 - UI: 'blue'
 - Selectors: 'pink'
+- API: 'yellow'
 - Error from error handler: 'red'
 
 ### Logging format
