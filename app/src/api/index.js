@@ -52,8 +52,8 @@ export default {
         });
     },
     update(id, member) {
-      ku.log('api.members.update: id', id, 'yellow')
-      ku.log('api.members.update: member', member, 'yellow')
+      //ku.log('api.members.update: id', id, 'orange')
+      //ku.log('api.members.update: member', member, 'orange')
       return fetchJson(
         `/members/${id}`,
         {

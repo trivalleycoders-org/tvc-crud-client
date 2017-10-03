@@ -9,6 +9,7 @@ export const membersById = ( state = {}, { type, payload }) => {
       case 'app/updateMemberFormFields':
       case 'app/updateMember':
       case 'app/insertMember': // new/add & update
+        ku.log('reducers.openMemberId app/openMember: type', type, 'orange')
         return merge(state, { [payload.member_id]: payload })
       case 'app/replaceMembers': // read list load all
         // ku.log("reducers.membersById app/replaceMembers: payload", payload, 'orange')

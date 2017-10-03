@@ -13,12 +13,7 @@ class Members extends Component {
   }
   render() {
     const { match, members, openMemberId } = this.props
-    const handleEditClick = (id) => {
-      console.log('i was clicked with id = ', id)
-      return (
-        <Redirect to={`${match.url}/member-edit`} />
-      )
-    }
+    
     // <Link to={`${match.url}/member-edit`}>
     // ku.log('Members: members', members, 'blue')
     const renderMembers = openMemberId === null
@@ -29,7 +24,6 @@ class Members extends Component {
             firstname={m.first_name}
             lastname={m.last_name}
             email={m.email}
-            editClick={handleEditClick}
           />
         ))
       : <Redirect to={`${match.url}/member-edit`} />
