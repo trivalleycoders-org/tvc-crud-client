@@ -28,6 +28,15 @@ export const fetchJson = (url, options = {}) => (
 );
 
 export default {
+  schedule: {
+    next6() {
+      console.log('api.schedule.next6', '', 'orange')
+      return fetchJson(
+        '/schedule/next6',
+        { method: 'GET'}
+      )
+    }
+  },
   members: {
     create() {
       return fetchJson(

@@ -1,27 +1,39 @@
-import React from 'react'
+// ScheduleList
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
+import styles from './style.css'
+import * as actionCreators from '../../../store/actions'
+import * as selectors from '../../../store/selectors'
+// import ScheduleRow from './ScheduleRow'
 
-const Schedule = () => {
-  return (
-    <div>
-      <h2>Schedule</h2>
-      <table>
-        <tbody>
-          <tr>
-            <th>Role</th>
-            <th>Person</th>
-          </tr>
-          <tr>
-            <td>Photog</td>
-            <td>Janet</td>
-          </tr>
-          <tr>
-            <td>Greeter</td>
-            <td>Mary</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  )
+
+/* edit button should only appear when admin is logged in */
+
+class Schedule extends Component {
+  componentWillMount() {
+
+    this.props.requestReadNext6() // likely will be requestReadSchedule('next') and can also have requestReadSchedule(date)
+    // this.props.requestReadExclusions()
+    // this.props.requestReadRoles()
+
+  }
+  render() {
+    return (
+      <div id='schedule' className={styles.schedule}>
+        <Link to='/editvolunteer'><button id='editScheduleBtn'>Edit</button></Link>
+        <h1 className={styles.title}>Volunteer Schedule for [date] </h1>
+        {/* <ScheduleRow /> */}
+      </div>
+    )
+  }
+
 }
 
-export default Schedule
+const mapStateToProps = (state) => {
+  const o = {
+
+  }
+  return o
+}
+export default connect(mapStateToProps, actionCreators)(Schedule)

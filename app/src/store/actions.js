@@ -36,6 +36,14 @@ export const updateMember = (member_id, member) => {
   })
 }
 
+export const replaceNext6 = (next6) => {
+ // ku.log('replaceMembers: members', members, 'blue')
+ return({
+   type: 'app/replaceMembers',
+   payload: next6,
+ })
+}
+
 export const closeMember = () => {
   return ({
     type: 'app/closeMember',
@@ -106,3 +114,9 @@ export const requestUpdateMember = createRequestThunk({
 //   key: (_id) => `api/deleteMember/${_id}`,
 //   success: [ (result) => deleteResult(result._id) ],
 // })
+
+export const requestReadNext6 = createRequestThunk({
+  request: api.schedule.next6,
+  key: 'api/getReadNext6',
+  success: [ replaceNext6 ],
+})
