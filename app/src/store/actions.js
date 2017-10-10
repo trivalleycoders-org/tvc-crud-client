@@ -51,6 +51,13 @@ export const updateMember = (member_id, member) => {
   })
 }
 
+export const deleteMember = (member_id) => {
+  return ({
+    type: 'app/deleteMember',
+    payload: { member_id },
+  })
+}
+
 export const closeMember = () => {
   return ({
     type: 'app/closeMember',
@@ -122,8 +129,8 @@ export const requestCreateMember = createRequestThunk({
   success: [ closeMember ],
 })
 
-// export const requestDeleteMember = createRequestThunk({
-//   request: api.result.delete,
-//   key: (_id) => `api/deleteMember/${_id}`,
-//   success: [ (result) => deleteResult(result._id) ],
-// })
+export const requestDeleteMember = createRequestThunk({
+  request: api.members.delete,
+  key: (member_id) => `api/deleteMember/${member_id}`,
+  success: [ (member_id) => deleteMember(member_id) ],
+})

@@ -66,7 +66,7 @@ export default {
     },
     delete(id) {
       return fetchJson(
-        `/result/${id}`,
+        `/members/${id}`,
         {
           method: 'DELETE'
         }

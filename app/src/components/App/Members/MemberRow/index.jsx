@@ -6,7 +6,7 @@ import * as actionCreators from '../../../../store/actions'
 // import * as selectors from '../../../../store/selectors';
 import styles from './style.css'
 
-const MemberRow = ({ member_id, firstname, lastname, email, openMember }) => {
+const MemberRow = ({ member_id, firstname, lastname, email, openMember, deleteMember }) => {
   // { member_id, firstname, lastname, email }
   const renderItems = (
     <div className={styles.wrapper}>
@@ -16,6 +16,7 @@ const MemberRow = ({ member_id, firstname, lastname, email, openMember }) => {
       <div> {email} </div>
       {/* <button className={styles.menuButton} onClick={() => openMember(member_id)}>Open Member</button> */}
       <button className={styles.menuButton} onClick={() => openMember(member_id)}>Member</button>
+      <button className={styles.menuButton} onClick={() => deleteMember(member_id)}>Delete</button>
     </div>
   )
   return (
