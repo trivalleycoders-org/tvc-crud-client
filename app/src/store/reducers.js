@@ -8,7 +8,7 @@ export const membersById = ( state = {}, { type, payload }) => {
     switch (type) {
       case 'app/updateMemberFormFields':
       case 'app/updateMember':
-      case 'app/insertMember': // new/add & update
+      case 'app/createMember': // new/add & update
         ku.log('reducers.openMemberId app/openMember: type', type, 'orange')
         return merge(state, { [payload.member_id]: payload })
       case 'app/replaceMembers': // read list load all
@@ -29,7 +29,7 @@ export const membersIds = (state = [], { type, payload }) => {
     case 'app/replaceMembers':
       // ku.log('reducers.membersIds app/replaceMembers: payload', payload, 'orange')
       return payload.ids
-    case 'app/insertMember':
+    case 'app/createMember':
       return prepend(payload.member_id, state)
     case 'app/removeMember':
       return dissoc(payload.member_id, state)
@@ -43,6 +43,7 @@ export const openMemberId = (state = null, { type, payload }) => {
 // SEE OPEN gedit NOTE
   switch (type) {
     case 'app/openMember':
+    case 'app/createMember':
       // ku.log('reducers.openMemberId app/openMember: type', type, 'orange')
       // ku.log('reducers.openMemberId app/openMember: payload', payload, 'orange')
       return payload.member_id

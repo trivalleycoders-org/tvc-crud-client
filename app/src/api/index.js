@@ -29,10 +29,13 @@ export const fetchJson = (url, options = {}) => (
 
 export default {
   members: {
-    create() {
+    create(member) {
       return fetchJson(
-        '/result',
-        { method: 'POST' }
+        '/members',
+        {
+          method: 'POST',
+          body: JSON.stringify({ member })
+        }
       );
     },
     read() {

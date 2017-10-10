@@ -18,6 +18,21 @@ export const openMember = (member_id) => {
   })
 }
 
+export const createMember = () => {
+  return ({
+    type: 'app/createMember',
+    payload: {
+      'member_id': 'create',
+      'first_name': '',
+      'last_name': '',
+      'email': '',
+      'exempt': false,
+      'comment': '',
+      'phone_number': '',
+    },
+  })
+}
+
 export const updateMember = (member_id, member) => {
   ku.log('actions.updateMember: member_id', member_id, 'orange')
   ku.log('actions.updateMember: member', member, 'orange')
@@ -98,6 +113,12 @@ export const requestReadMembers = createRequestThunk({
 export const requestUpdateMember = createRequestThunk({
   request: api.members.update,
   key: (member_id) => `api/updateMember/${member_id}`,
+  success: [ closeMember ],
+})
+
+export const requestCreateMember = createRequestThunk({
+  request: api.members.create,
+  key: 'api/createMember',
   success: [ closeMember ],
 })
 

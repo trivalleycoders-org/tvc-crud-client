@@ -12,8 +12,8 @@ class Members extends Component {
     this.props.requestReadMembers()
   }
   render() {
-    const { match, members, openMemberId } = this.props
-    
+    const { match, members, openMemberId, createMember } = this.props
+
     // <Link to={`${match.url}/member-edit`}>
     // ku.log('Members: members', members, 'blue')
     const renderMembers = openMemberId === null
@@ -26,12 +26,16 @@ class Members extends Component {
             email={m.email}
           />
         ))
-      : <Redirect to={`${match.url}/member-edit`} />
+      : (openMemberId === 'create'
+        ? <Redirect to={`${match.url}/member-create`} />
+        : <Redirect to={`${match.url}/member-edit`} />
+      )
     return (
       <div>
         <h1>Members</h1>
         {/* <Link to={`${match.url}/member-edit`}><button onClick={() => buttonClick()}>/member-edit</button></Link> */}
         {renderMembers}
+        <button onClick={createMember}>Add</button>
       </div>
     )
   }
