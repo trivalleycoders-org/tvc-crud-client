@@ -1,5 +1,5 @@
 import { normalize, Schema, arrayOf } from 'normalizr'
-// import * as ku from '../lib/ke-utils'
+import * as ku from '../lib/ke-utils'
 
 
 const members = new Schema('members', { idAttribute: 'member_id'})
