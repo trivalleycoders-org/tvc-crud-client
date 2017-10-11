@@ -6,16 +6,26 @@ import * as actionCreators from '../../../../store/actions'
 // import * as selectors from '../../../../store/selectors';
 import styles from './style.css'
 
-const ScheduleRow = ({ member_id, firstname, lastname, email, openMember }) => {
-  // { member_id, firstname, lastname, email }
+const ScheduleRow = ({ member }) => {
   const renderItems = (
+
     <div className={styles.wrapper}>
-      <div> {member_id} </div>
-      <div> {firstname} </div>
-      <div> {lastname} </div>
-      <div> {email} </div>
-      {/* <button className={styles.menuButton} onClick={() => openMember(member_id)}>Open Member</button> */}
-      <button className={styles.menuButton} onClick={() => openMember(member_id)}>Member</button>
+      <div className={styles.row}>
+        <div className={styles.memberDetail}>id</div>
+        <div className={styles.memberDetail}>seq</div>
+        <div className={styles.memberDetail}>first</div>
+        <div className={styles.memberDetail}>lServeDate</div>
+        <div className={styles.memberDetail}>lRoleId</div>
+        <div className={styles.memberDetail}>lRoleName</div>
+      </div>
+      <div className={styles.row}>
+        <div className={styles.memberDetail}> {member.memberId} </div>
+        <div className={styles.memberDetail}> {member.sequence} </div>
+        <div className={styles.memberDetail}> {member.firstName} </div>
+        <div className={styles.memberDetail}> {member.lastServedDate} </div>
+        <div className={styles.memberDetail}> {member.lastRoleId} </div>
+        <div className={styles.memberDetail}> {member.lastRoleName} </div>
+      </div>
     </div>
   )
   return (
