@@ -6,17 +6,20 @@ import * as actionCreators from '../../../../store/actions'
 // import * as selectors from '../../../../store/selectors';
 import styles from './style.css'
 
-const MemberRow = ({ member_id, firstname, lastname, email, openMember, deleteMember }) => {
+const MemberRow = ({ member_id, firstname, lastname, email, openMember, requestDeleteMember }) => {
+  const handleDeleteClick = () => {
+    requestDeleteMember(member_id)
+  }
+
   // { member_id, firstname, lastname, email }
   const renderItems = (
     <div className={styles.wrapper}>
-      <div> {member_id} </div>
-      <div> {firstname} </div>
-      <div> {lastname} </div>
-      <div> {email} </div>
-      {/* <button className={styles.menuButton} onClick={() => openMember(member_id)}>Open Member</button> */}
-      <button className={styles.menuButton} onClick={() => openMember(member_id)}>Member</button>
-      <button className={styles.menuButton} onClick={() => deleteMember(member_id)}>Delete</button>
+      <div className={styles.column}>{member_id}</div>
+      <div className={styles.column}>{firstname}</div>
+      <div className={styles.column}>{lastname}</div>
+      <div className={styles.double_column}>{email}</div>
+      <button className={styles.menuButton} onClick={() => openMember(member_id)}>Edit</button>
+      <button className={styles.menuButton} onClick={() => handleDeleteClick()}>Delete</button>
     </div>
   )
   return (

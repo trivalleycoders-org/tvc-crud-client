@@ -3,5 +3,11 @@
   flex-flow: row;
   justify-content: space-between;
   width: 100%;
-  
+}
+
+.column {
+  flex: 1 0 0;
+}
+.double_column {
+  flex: 2 0 0;
 }

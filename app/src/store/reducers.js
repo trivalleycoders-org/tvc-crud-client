@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import { merge, prepend, dissoc } from 'ramda'
+import { merge, prepend, dissoc, without } from 'ramda'
 import * as ku from '../lib/ke-utils'
 
 export const membersById = ( state = {}, { type, payload }) => {
@@ -9,13 +9,13 @@ export const membersById = ( state = {}, { type, payload }) => {
       case 'app/updateMemberFormFields':
       case 'app/updateMember':
       case 'app/createMember': // new/add & update
-        ku.log('reducers.openMemberId app/openMember: type', type, 'orange')
+        // ku.log('reducers.openMemberId app/openMember: type', type, 'orange')
         return merge(state, { [payload.member_id]: payload })
+      case 'app/deleteMember':
+        return dissoc(payload.member_id, state)
       case 'app/replaceMembers': // read list load all
         // ku.log("reducers.membersById app/replaceMembers: payload", payload, 'orange')
         return payload.members
-      case 'app/removeMember':
-        return dissoc(payload.member_id, state)
       default:
         return state
     }
@@ -31,8 +31,9 @@ export const membersIds = (state = [], { type, payload }) => {
       return payload.ids
     case 'app/createMember':
       return prepend(payload.member_id, state)
-    case 'app/removeMember':
-      return dissoc(payload.member_id, state)
+    case 'app/deleteMember':
+      // ku.log('reducers.membersIds app/deleteMember: payload', payload, 'orange')
+      return without([payload.member_id], state)
     default:
       return state
   }

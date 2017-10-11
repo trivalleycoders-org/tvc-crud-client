@@ -1,5 +1,5 @@
 import { normalize, Schema, arrayOf } from 'normalizr'
-import * as ku from '../lib/ke-utils'
+// import * as ku from '../lib/ke-utils'
 
 
 const members = new Schema('members', { idAttribute: 'member_id'})
@@ -61,7 +61,8 @@ export default {
         `/members/${id}`,
         {
           method: 'PUT',
-          body: JSON.stringify({ member }) }
+          body: JSON.stringify({ member })
+        }
       );
     },
     delete(id) {
@@ -70,7 +71,11 @@ export default {
         {
           method: 'DELETE'
         }
-      );
+      )
+      .then((data) => {
+        console.log(data)
+        return data.affectedRows ? id : -1
+      });
     },
   },
 };

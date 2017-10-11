@@ -52,6 +52,7 @@ export const updateMember = (member_id, member) => {
 }
 
 export const deleteMember = (member_id) => {
+  // ku.log('actions.deleteMember: member_id', member_id, 'orange')
   return ({
     type: 'app/deleteMember',
     payload: { member_id },
