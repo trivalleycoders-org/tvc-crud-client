@@ -3,7 +3,9 @@ import * as ku from '../lib/ke-utils'
 
 
 const members = new Schema('members', { idAttribute: 'member_id'})
-
+const next6 = new Schema('next6', { idAttribute: 'sequence'})
+const roles = new Schema('roles', { idAttribute: 'role_id'})
+const exclusions = new Schema('exclusions', { idAttribute: 'exclusion_id'})
 
 export const rejectErrors = (res) => {
   const { status } = res;
@@ -29,12 +31,53 @@ export const fetchJson = (url, options = {}) => (
 
 export default {
   schedule: {
-    next6() {
-      console.log('api.schedule.next6', '', 'orange')
+    scheduleMembers() {
       return fetchJson(
-        '/schedule/next6',
+        '/schedule/scheduleMembers',
         { method: 'GET'}
       )
+      .then((data) => {
+        ku.log('api.schedule.scheduleMembers: data', data, 'yellow')
+        const normalized = normalize(data, arrayOf(next6))
+        const o = {
+          scheduleMembers: normalized.entities.next6 || {},
+          ids: normalized.result,
+        }
+        ku.log('api.schedule.scheduleMembers: o', o, 'yellow')
+        return o
+      })
+    },
+    roles() {
+      return fetchJson(
+        '/schedule/roles',
+        { method: 'GET'}
+      )
+      .then((data) => {
+        // ku.log('api.schedule.roles: data', data, 'yellow')
+        const normalized = normalize(data, arrayOf(roles))
+        const o = {
+          roles: normalized.entities.roles || {},
+          ids: normalized.result,
+        }
+        // ku.log('api.schedule.roles: o', o, 'yellow')
+        return o
+      })
+    },
+    exclusions() {
+      return fetchJson(
+        '/schedule/exclusions',
+        { method: 'GET'}
+      )
+      .then((data) => {
+        // ku.log('api.schedule.exclusions: data', data, 'yellow')
+        const normalized = normalize(data, arrayOf(exclusions))
+        const o = {
+          exclusions: normalized.entities.exclusions || {},
+          ids: normalized.result,
+        }
+        // ku.log('api.schedule.exclusions: o', o, 'yellow')
+        return o
+      })
     }
   },
   members: {

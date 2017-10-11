@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import styles from './style.css'
 import * as actionCreators from '../../../store/actions'
 import * as selectors from '../../../store/selectors'
+import * as ku from '../../../lib/ke-utils'
 // import ScheduleRow from './ScheduleRow'
 
 
@@ -13,12 +14,16 @@ import * as selectors from '../../../store/selectors'
 class Schedule extends Component {
   componentWillMount() {
 
-    this.props.requestReadNext6() // likely will be requestReadSchedule('next') and can also have requestReadSchedule(date)
-    // this.props.requestReadExclusions()
-    // this.props.requestReadRoles()
+    this.props.requestReadScheduleMembers() // likely will be requestReadSchedule('next') and can also have requestReadSchedule(date)
+    this.props.requestReadExclusions()
+    this.props.requestReadRoles()
 
   }
   render() {
+    const { scheduleMembers, roles, exclusions } = this.props
+    ku.log('Schedule: scheduleMembers', scheduleMembers, 'blue')
+    ku.log('Schedule: roles', roles, 'blue')
+    ku.log('Schedule: exclusions', exclusions, 'blue')
     return (
       <div id='schedule' className={styles.schedule}>
         <Link to='/editvolunteer'><button id='editScheduleBtn'>Edit</button></Link>
@@ -32,7 +37,9 @@ class Schedule extends Component {
 
 const mapStateToProps = (state) => {
   const o = {
-
+    scheduleMembers: selectors.getScheduleMembers(state),
+    roles: selectors.getRoles(state),
+    exclusions: selectors.getExclusions(state)
   }
   return o
 }
