@@ -17,8 +17,9 @@ const MemberRow = ({ member_id, firstname, lastname, email, phone_number, openMe
     <div className={styles.wrapper}>
 
       <div className={styles.column}>{firstname} {lastname}</div>
-      <div className={styles.column}>{phone_number}</div>
       <div className={styles.double_column}>{email}</div>
+      <div className={styles.column}>{phone_number}</div>
+
       
       <button className={styles.menuButton} onClick={() => openMember(member_id)}>Edit</button>
       <button className={styles.menuButton} onClick={() => handleDeleteClick()}>Delete</button>
