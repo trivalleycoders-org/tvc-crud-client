@@ -42,7 +42,7 @@ class Schedule extends Component {
       let rRoles = roles.map((r) => {
         return {
           roleId: r.role_id,
-          roleName: r.title,
+          roleName: r.role_name,
           exempt: isExcluded(memberId, r.role_id)
         }
       })
@@ -75,16 +75,14 @@ class Schedule extends Component {
         <Link to='/editvolunteer'><button id='editScheduleBtn'>Edit</button></Link>
         <h1 className={styles.title}>Volunteer Schedule for [date] </h1>
         {/* <ScheduleRow /> */}
-        <div classname={styles.wrapper}>
-          <div className={styles.row}>
-            <div className={styles.memberDetail}>id</div>
-            <div className={styles.memberDetail}>seq</div>
-            <div className={styles.memberDetail}>first</div>
-            <div className={styles.memberDetail}>last</div>
-            <div className={styles.memberDetail}>lServeDate</div>
-            <div className={styles.memberDetail}>lRoleId</div>
-            <div className={styles.memberDetail}>lRoleName</div>
-          </div>
+        <div className={styles.row}>
+          <div className={styles.memberDetail}>id</div>
+          <div className={styles.memberDetail}>seq</div>
+          <div className={styles.memberDetail}>first</div>
+          <div className={styles.memberDetail}>last</div>
+          <div className={styles.memberDetail}>lServeDate</div>
+          <div className={styles.memberDetail}>lRoleId</div>
+          <div className={styles.memberDetail}>lRoleName</div>
         </div>
         {renderList}
       </div>
