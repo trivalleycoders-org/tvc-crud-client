@@ -22,9 +22,10 @@ class Members extends Component {
           <MemberRow
             key={m.member_id}
             member_id={m.member_id}
-            firstname={m.first_name}
-            lastname={m.last_name}
+            firstName={m.first_name}
+            lastName={m.last_name}
             email={m.email}
+            phoneNumber={m.phone_number}
           />
         ))
       : (openMemberId === 'create'
@@ -44,7 +45,7 @@ class Members extends Component {
               <th>Comments</th>
             </tr>
           </thead>
-        </Table> 
+        </Table>
         {renderMembers}
         {/* <Link to={`${match.url}/member-edit`}><button onClick={() => buttonClick()}>/member-edit</button></Link> */}
         <button onClick={createMember}>Add</button>

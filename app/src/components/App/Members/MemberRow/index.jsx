@@ -2,27 +2,22 @@
 
 import React from 'react'
 import { connect } from 'react-redux'
+import { Button } from 'react-bootstrap'
 import * as actionCreators from '../../../../store/actions'
 
 // import * as selectors from '../../../../store/selectors';
 import styles from './style.css'
 
-const MemberRow = ({ member_id, firstname, lastname, email, phone_number, openMember, requestDeleteMember }) => {
-  const handleDeleteClick = () => {
-    requestDeleteMember(member_id)
-  }
+const MemberRow = ({ member_id, firstName, lastName, email, phoneNumber, openMember, requestDeleteMember }) => {
 
   // { member_id, firstname, lastname, email }
   const renderItems = (
     <div className={styles.wrapper}>
-
-      <div className={styles.column}>{firstname} {lastname}</div>
-      <div className={styles.double_column}>{email}</div>
-      <div className={styles.column}>{phone_number}</div>
-
-      
-      <button className={styles.menuButton} onClick={() => openMember(member_id)}>Edit</button>
-      <button className={styles.menuButton} onClick={() => handleDeleteClick()}>Delete</button>
+      <div className={styles.column}>{firstName} {lastName}</div>
+      <div className={styles.column}>{email}</div>
+      <div className={styles.column}>{phoneNumber}</div>
+      <div className={styles.column}></div>
+      <Button onClick={() => openMember(member_id)}>Edit</Button>
     </div>
   )
   return (
