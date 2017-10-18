@@ -129,6 +129,15 @@ export const exclusionsIds = (state = [], { type, payload }) => {
   }
 }
 
+export const scheduleMembersRoles = (state = {}, { type, payload }) => {
+  switch (type) {
+    case 'app/setSchedule':
+      return merge(state, payload)
+    default:
+      return state
+  }
+}
+
 export default combineReducers({
   members: combineReducers({
     membersById,
@@ -141,6 +150,7 @@ export default combineReducers({
     rolesIds,
     exclusionsById,
     exclusionsIds,
+    scheduleMembersRoles,
   }),
   openMemberId,
   requests,

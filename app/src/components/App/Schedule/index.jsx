@@ -21,7 +21,7 @@ class Schedule extends Component {
 
   }
   render() {
-    const { scheduleMembers, roles, exclusions } = this.props
+    const { scheduleMembers, roles, exclusions, rolesForMembers, setSchedule } = this.props
     // ku.log('Schedule: scheduleMembers', scheduleMembers, 'blue')
     // ku.log('Schedule: roles', roles, 'blue')
     // ku.log('Schedule: exclusions', exclusions, 'blue')
@@ -63,10 +63,20 @@ class Schedule extends Component {
         return false // should do something better than this
       }
     }
-    const renderList = scheduleList.map((m, index) => (
+
+    // populate the roles
+    const rolesMembersMap = {}
+    roles.map((r, index) => {
+      rolesMembersMap[r.id] = scheduleList[index].memberId
+    })
+    setSchedule(rolesMembersMap)
+
+    const renderList = roles.map((r, index) => (
       <ScheduleRow
         key={index}
-        member={m}
+        role={r}
+        memberId={rolesForMembers[r.id]}
+        scheduleList={scheduleList}
       />
     ))
     ku.log('Schedule: scheduleList', scheduleList, 'blue')
@@ -76,13 +86,11 @@ class Schedule extends Component {
         <h1 className={styles.title}>Volunteer Schedule for [date] </h1>
         {/* <ScheduleRow /> */}
         <div className={styles.row}>
-          <div className={styles.memberDetail}>id</div>
-          <div className={styles.memberDetail}>seq</div>
-          <div className={styles.memberDetail}>first</div>
-          <div className={styles.memberDetail}>last</div>
-          <div className={styles.memberDetail}>lServeDate</div>
-          <div className={styles.memberDetail}>lRoleId</div>
-          <div className={styles.memberDetail}>lRoleName</div>
+          <div className={styles.memberDetail}>member</div>
+          <div className={styles.memberDetail}>lastRole</div>
+          <div className={styles.memberDetail}>served?</div>
+          <div className={styles.memberDetail}>comment</div>
+          <div className={styles.memberDetail}>contact</div>
         </div>
         {renderList}
       </div>
@@ -95,7 +103,8 @@ const mapStateToProps = (state) => {
   const o = {
     scheduleMembers: selectors.getScheduleMembers(state),
     roles: selectors.getRoles(state),
-    exclusions: selectors.getExclusions(state)
+    exclusions: selectors.getExclusions(state),
+    rolesForMembers: selectors.getRolesForMembers(state)
   }
   return o
 }
