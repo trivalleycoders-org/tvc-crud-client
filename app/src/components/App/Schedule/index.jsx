@@ -20,8 +20,15 @@ class Schedule extends Component {
     this.props.requestReadRoles()
 
   }
+
+  handleSelectMember = (roleId, memberId) => {
+    this.props.setSchedule({
+      [roleId]: memberId === '' ? undefined : +memberId
+    })
+  }
+
   render() {
-    const { scheduleMembers, roles, exclusions, rolesForMembers, setSchedule } = this.props
+    const { scheduleMembers, roles, exclusions, rolesForMembers } = this.props
     // ku.log('Schedule: scheduleMembers', scheduleMembers, 'blue')
     // ku.log('Schedule: roles', roles, 'blue')
     // ku.log('Schedule: exclusions', exclusions, 'blue')
@@ -63,20 +70,13 @@ class Schedule extends Component {
         return false // should do something better than this
       }
     }
-
-    // populate the roles
-    const rolesMembersMap = {}
-    roles.map((r, index) => {
-      rolesMembersMap[r.id] = scheduleList[index].memberId
-    })
-    setSchedule(rolesMembersMap)
-
     const renderList = roles.map((r, index) => (
       <ScheduleRow
         key={index}
         role={r}
-        memberId={rolesForMembers[r.id]}
+        memberId={rolesForMembers[r.role_id] || ''}
         scheduleList={scheduleList}
+        selectMember={this.handleSelectMember}
       />
     ))
     ku.log('Schedule: scheduleList', scheduleList, 'blue')
@@ -86,6 +86,7 @@ class Schedule extends Component {
         <h1 className={styles.title}>Volunteer Schedule for [date] </h1>
         {/* <ScheduleRow /> */}
         <div className={styles.row}>
+          <div className={styles.memberDetail}>role</div>
           <div className={styles.memberDetail}>member</div>
           <div className={styles.memberDetail}>lastRole</div>
           <div className={styles.memberDetail}>served?</div>

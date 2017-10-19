@@ -69,7 +69,7 @@ export const closeMember = () => {
 // payload: {role1_id: member32_id, role2_id: member175_id...}
 export const setSchedule = (rolesForMembers) => {
   return ({
-    type: 'app/scheduleMembersRoles',
+    type: 'app/setSchedule',
     payload: rolesForMembers,
   })
 }
