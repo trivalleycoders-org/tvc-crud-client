@@ -89,6 +89,14 @@ export const closeMember = () => {
   })
 }
 
+// payload: {role1_id: member32_id, role2_id: member175_id...}
+export const setSchedule = (rolesForMembers) => {
+  return ({
+    type: 'app/setSchedule',
+    payload: rolesForMembers,
+  })
+}
+
 export const markRequestPending = (key) => ({
   type: 'app/markRequestPending',
   meta: { key },
