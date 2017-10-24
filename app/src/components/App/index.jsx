@@ -16,12 +16,10 @@ const App = () => {
           <Link to='/'><button className={styles.menuButton}>/</button></Link>
           <Link to='/members'><button className={styles.menuButton}>/members</button></Link>
           <Link to='/schedule'><button className={styles.menuButton}>/schedule</button></Link>
+          <h2>Actions</h2>
         </div>
-
         <Route exact path='/schedule' component={Schedule} />
         <Route exact path='/' component={Schedule}/>
-
-
         <Route exact path='/members' component={Members} />
         <Route path='/members/member-edit' component={MemberEdit} />
         <Route path='/members/member-create' component={MemberEdit} />

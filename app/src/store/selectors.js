@@ -13,6 +13,9 @@ export const getRoles = (state) => {
 export const getExclusions = (state) => {
   return state.schedule.exclusionsIds.map((id) => state.schedule.exclusionsById[id]);
 }
+export const getRolesForMembers = (state) => {
+  return state.schedule.scheduleMembersRoles
+}
 // redux selectors
 export const getRequest = (state, key) =>
   state.requests[key] || {}
