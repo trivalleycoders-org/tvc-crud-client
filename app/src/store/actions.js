@@ -35,8 +35,8 @@ export const createMember = () => {
 }
 
 export const updateMember = (member_id, member) => {
-  ku.log('actions.updateMember: member_id', member_id, 'orange')
-  ku.log('actions.updateMember: member', member, 'orange')
+  // ku.log('actions.updateMember: member_id', member_id, 'orange')
+  // ku.log('actions.updateMember: member', member, 'orange')
 
   return ({
     type: 'app/updateMember',
@@ -59,6 +59,30 @@ export const deleteMember = (member_id) => {
     type: 'app/deleteMember',
     payload: { member_id },
   })
+}
+
+export const replaceScheduleMembers = (scheduleMembers) => {
+ // ku.log('actions.replaceMembers: next6', next6, 'orange')
+ return({
+   type: 'app/scheduleMembers',
+   payload: scheduleMembers,
+ })
+}
+
+export const replaceRoles = (roles) => {
+ // ku.log('actions.replaceMembers: roles', roles, 'orange')
+ return({
+   type: 'app/replaceRoles',
+   payload: roles,
+ })
+}
+
+export const replaceExclusions = (exclusions) => {
+ // ku.log('actions.replaceMembers: exclusions', exclusions, 'orange')
+ return({
+   type: 'app/replaceExclusions',
+   payload: exclusions,
+ })
 }
 
 export const closeMember = () => {
@@ -136,4 +160,22 @@ export const requestDeleteMember = createRequestThunk({
   request: api.members.delete,
   key: (member_id) => `api/deleteMember/${member_id}`,
   success: [ (member_id) => deleteMember(member_id) ],
+})
+
+export const requestReadScheduleMembers = createRequestThunk({
+  request: api.schedule.scheduleMembers,
+  key: 'api/getReadScheduleMembers',
+  success: [ replaceScheduleMembers ],
+})
+
+export const requestReadRoles = createRequestThunk({
+  request: api.schedule.roles,
+  key: 'api/getReadRoles',
+  success: [ replaceRoles ],
+})
+
+export const requestReadExclusions = createRequestThunk({
+  request: api.schedule.exclusions,
+  key: 'api/getReadExclusions',
+  success: [ replaceExclusions ],
 })

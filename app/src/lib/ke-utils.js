@@ -23,7 +23,7 @@ const stylePink = [
   'font-weight: bold',
 ].join(';');
 const styleYellow = [
-  'color: #ffff00',
+  'color: #ffd700',
   'font-weight: bold',
 ].join(';');
 

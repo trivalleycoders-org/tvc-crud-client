@@ -68,10 +68,81 @@ export const requests = (state = {}, { type, payload, meta }) => {
   }
 }
 
+export const scheduleMembersById = (state = null, { type, payload }) => {
+
+  switch (type) {
+    case 'app/scheduleMembers':
+      return payload.scheduleMembers
+    default:
+      return state
+  }
+}
+
+export const scheduleMembersIds = (state = [], { type, payload }) => {
+  switch (type) {
+    case 'app/scheduleMembers':
+      return payload.ids
+    default:
+      return state
+  }
+}
+
+export const rolesById = (state = null, { type, payload }) => {
+  // ku.log('reducers.rolesById: type', type, 'orange')
+  // ku.log('reducers.rolesById: payload', payload, 'orange')
+  switch (type) {
+    case 'app/replaceRoles':
+      return payload.roles
+    default:
+      return state
+  }
+}
+
+export const rolesIds = (state = [], { type, payload }) => {
+  // ku.log('reducers.rolesIds: type', type, 'orange')
+  // ku.log('reducers.rolesIds: payload', payload, 'orange')
+  switch (type) {
+    case 'app/replaceRoles':
+      return payload.ids
+    default:
+      return state
+  }
+}
+
+export const exclusionsById = (state = null, { type, payload }) => {
+  // ku.log('reducers.exclusionsById: type', type, 'orange')
+  // ku.log('reducers.exclusionsById: payload', payload, 'orange')
+  switch (type) {
+    case 'app/replaceExclusions':
+      return payload.exclusions
+    default:
+      return state
+  }
+}
+
+export const exclusionsIds = (state = [], { type, payload }) => {
+  // ku.log('reducers.exclusionsIds: type', type, 'orange')
+  // ku.log('reducers.exclusionsIds: payload', payload, 'orange')
+  switch (type) {
+    case 'app/replaceExclusions':
+      return payload.ids
+    default:
+      return state
+  }
+}
+
 export default combineReducers({
   members: combineReducers({
     membersById,
     membersIds,
+  }),
+  schedule: combineReducers({
+    scheduleMembersById,
+    scheduleMembersIds,
+    rolesById,
+    rolesIds,
+    exclusionsById,
+    exclusionsIds,
   }),
   openMemberId,
   requests,
