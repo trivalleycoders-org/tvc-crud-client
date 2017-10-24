@@ -29,6 +29,7 @@ export const createMember = () => {
       'exempt': false,
       'comment': '',
       'phone_number': '',
+      'active': 1,
     },
   })
 }
@@ -47,6 +48,7 @@ export const updateMember = (member_id, member) => {
       'exempt': member.exempt,
       'comment': member.comment,
       'phone_number': member.phone_number,
+      'active': member.active,
     },
   })
 }

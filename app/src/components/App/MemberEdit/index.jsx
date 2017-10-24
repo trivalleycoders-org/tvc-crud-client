@@ -42,6 +42,7 @@ const MemberEdit = ({ members, openMemberId, updateMember, requestUpdateMember, 
          <input type="text" value={member.exempt || "0"} onChange={(event) => handleMemberChange('exempt', event.target.value)} />
          <input type="text" value={member.comment || ""} placeholder="comment" onChange={(event) => handleMemberChange('comment', event.target.value)} />
          <input type="text" value={member.phone_number || ""} placeholder="phone number" onChange={(event) => handleMemberChange('phone_number', event.target.value)} />
+         <input type="checkbox" checked={member.active} onChange={(event) => handleMemberChange('active', event.target.checked)} /> active
          <input type="submit" value="Save" />
          <Link to='/members'><button onClick={() => closeMember()}>Done</button></Link>
        </form>
