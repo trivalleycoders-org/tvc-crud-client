@@ -32,6 +32,7 @@ class Schedule extends Component {
     // ku.log('Schedule: scheduleMembers', scheduleMembers, 'blue')
     // ku.log('Schedule: roles', roles, 'blue')
     // ku.log('Schedule: exclusions', exclusions, 'blue')
+    ku.log('rolesForMembers', rolesForMembers, 'blue')
     const scheduleList = scheduleMembers.map((m) => {
       const rMember = {
         memberId: m.member_id,
@@ -41,6 +42,7 @@ class Schedule extends Component {
         lastServedDate: m.date,
         lastRoleId: m.role_id,
         lastRoleName: m.role_name,
+        comment: m.comment,
         roles: getRoles(m.member_id),
       }
       return rMember
@@ -74,7 +76,7 @@ class Schedule extends Component {
       <ScheduleRow
         key={index}
         role={r}
-        memberId={rolesForMembers[r.role_id] || ''}
+        memberId={rolesForMembers[r.role_id] || '1'}
         scheduleList={scheduleList}
         selectMember={this.handleSelectMember}
       />
@@ -89,7 +91,6 @@ class Schedule extends Component {
           <div className={styles.memberDetail}>role</div>
           <div className={styles.memberDetail}>member</div>
           <div className={styles.memberDetail}>lastRole</div>
-          <div className={styles.memberDetail}>served?</div>
           <div className={styles.memberDetail}>comment</div>
           <div className={styles.memberDetail}>contact</div>
         </div>

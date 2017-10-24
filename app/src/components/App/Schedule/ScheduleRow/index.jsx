@@ -2,12 +2,17 @@
 
 import React from 'react'
 import styles from './style.css'
-
+import * as ku from '../../../../lib/ke-utils'
 const ScheduleRow = ({ role, memberId, scheduleList, selectMember }) => {
-  const scheduleRow = memberId ? scheduleList.find((row) => row.memberId === memberId) : null
+  const scheduleRow = memberId
+    ? scheduleList.find((row) => row.memberId == memberId)
+    : null
   const memberOptions = scheduleList.map((el, index) =>
     <option key={index} value={el.memberId}>{el.firstName} {el.lastName}</option>
   )
+  ku.log('scheduleList', scheduleList, 'red')
+
+  ku.log('scheduleRow', scheduleRow, 'red')
   return (
     <div className={styles.row}>
       <div className={styles.memberDetail}> {role.role_name} </div>
@@ -21,18 +26,11 @@ const ScheduleRow = ({ role, memberId, scheduleList, selectMember }) => {
         {
           scheduleRow &&
             <div>
-              {scheduleRow.lastRoleName || 'null'} on {scheduleRow.lastServedDate|| 'null'}
+              {scheduleRow.lastRoleName || 'none'} on {scheduleRow.lastServedDate|| ''}
             </div>
         }
       </div>
-      <div className={styles.memberDetail}>
-        <input
-          type="checkbox"
-          // checked={}
-          // onChange={}
-        />
-      </div>
-      <div className={styles.memberDetail}> [comment] </div>
+      <div className={styles.memberDetail}>{scheduleRow ? scheduleRow.comment : ''}</div>
       <div className={styles.memberDetail}> [contact] </div>
     </div>
   )
