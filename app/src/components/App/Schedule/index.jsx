@@ -34,6 +34,7 @@ class Schedule extends Component {
     // ku.log('Schedule: exclusions', exclusions, 'blue')
     ku.log('rolesForMembers', rolesForMembers, 'blue')
     const scheduleList = scheduleMembers.map((m) => {
+      console.log('=======', m)
       const rMember = {
         memberId: m.member_id,
         sequence: m.sequence,

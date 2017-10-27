@@ -26,11 +26,15 @@ const ScheduleRow = ({ role, memberId, scheduleList, selectMember }) => {
         {
           scheduleRow &&
             <div>
-              {scheduleRow.lastRoleName || 'none'} on {scheduleRow.lastServedDate|| ''}
+              {scheduleRow.lastRoleName || 'none'} on {scheduleRow.lastServedDate || 'n/a'}
             </div>
         }
       </div>
       <div className={styles.memberDetail}>{scheduleRow ? scheduleRow.comment : ''}</div>
+      {/*
+        the server does not provide contact data yet,
+        see "[log] api.schedule.scheduleMembers: data " in the console
+         */}
       <div className={styles.memberDetail}> [contact] </div>
     </div>
   )
