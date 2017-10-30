@@ -28,11 +28,11 @@ class Schedule extends Component {
   }
 
   render() {
-    const { scheduleMembers, roles, exclusions, rolesForMembers } = this.props
+    const { scheduleMembers, roles, exclusions, upcomingSchedule } = this.props
     // ku.log('Schedule: scheduleMembers', scheduleMembers, 'blue')
     // ku.log('Schedule: roles', roles, 'blue')
     // ku.log('Schedule: exclusions', exclusions, 'blue')
-    ku.log('rolesForMembers', rolesForMembers, 'blue')
+    ku.log('upcomingSchedule', upcomingSchedule, 'blue')
     const scheduleList = scheduleMembers.map((m) => {
       const rMember = {
         memberId: m.member_id,
@@ -76,7 +76,7 @@ class Schedule extends Component {
       <ScheduleRow
         key={index}
         role={r}
-        memberId={rolesForMembers[r.role_id] || '1'}
+        memberId={upcomingSchedule[r.role_id] || '1'}
         scheduleList={scheduleList}
         selectMember={this.handleSelectMember}
       />
@@ -106,7 +106,7 @@ const mapStateToProps = (state) => {
     scheduleMembers: selectors.getScheduleMembers(state),
     roles: selectors.getRoles(state),
     exclusions: selectors.getExclusions(state),
-    rolesForMembers: selectors.getRolesForMembers(state)
+    upcomingSchedule: selectors.getUpcomingSchedule(state)
   }
   return o
 }
