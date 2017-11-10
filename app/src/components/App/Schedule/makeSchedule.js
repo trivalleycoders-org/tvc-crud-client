@@ -80,16 +80,16 @@
 //
 // {1: 1, 2: 3, 3: 2, 4: 4}
 
-function makeSchedule(memberArrRaw) {
+function makeSchedule(memberArrRaw, roles) {
 
-  let numRoles = memberArrRaw[0].roles.length
+  let numRoles = roles.length
 
   // only need first n of
   let memberArr = memberArrRaw.slice(0, numRoles)
 
   // create array of role IDs
   let rolesArr = []
-  memberArrRaw[0].roles.forEach((role) => rolesArr.push(role.roleId))
+  roles.forEach((role) => rolesArr.push(role.role_id))
 
   // holder for best sched so far
   let bestSched = []
