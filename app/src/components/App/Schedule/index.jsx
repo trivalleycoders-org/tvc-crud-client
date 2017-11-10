@@ -26,19 +26,25 @@ class Schedule extends Component {
     })
   }
 
+  handleAutoSchedule = (scheduleList, roles) => {
+    const schedule = makeSchedule(scheduleList, roles)
+    this.props.setSchedule(schedule)
+  }
+
   render() {
     const { scheduleMembers, roles, exclusions, upcomingSchedule } = this.props
     // ku.log('Schedule: scheduleMembers', scheduleMembers, 'blue')
     // ku.log('Schedule: roles', roles, 'blue')
     // ku.log('Schedule: exclusions', exclusions, 'blue')
     ku.log('upcomingSchedule', upcomingSchedule, 'blue')
+
     const scheduleList = createScheduleList(scheduleMembers, roles, exclusions)
 
     const renderList = roles.map((r, index) => (
       <ScheduleRow
         key={index}
         role={r}
-        memberId={upcomingSchedule[r.role_id] || '1'}
+        memberId={upcomingSchedule[r.role_id] || ''}
         scheduleList={scheduleList}
         selectMember={this.handleSelectMember}
       />
@@ -57,7 +63,11 @@ class Schedule extends Component {
           <div className={styles.memberDetail}>contact</div>
         </div>
         {renderList}
+        <button onClick={(e) => this.handleAutoSchedule(scheduleList, roles)}>
+          Auto Schedule
+        </button>
       </div>
+
     )
   }
 
