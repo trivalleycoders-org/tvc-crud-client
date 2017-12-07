@@ -41,14 +41,17 @@ export const updateMember = (member_id, member) => {
   return ({
     type: 'app/updateMember',
     payload: {
-      'member_id': member_id,
-      'first_name': member.first_name,
-      'last_name': member.last_name,
+      'id': member_id,
+      'firstName': member.firstName,
+      'lastName': member.lastName,
       'email': member.email,
       'exempt': member.exempt,
       'comment': member.comment,
-      'phone_number': member.phone_number,
+      'phoneNumber': member.phoneNumber,
       'active': member.active,
+      'lastRoleDate': member.lastRoleDate,
+      'lastRoleName': member.lastRoleName,
+      'exclusions': member.exclusions,
     },
   })
 }
@@ -119,7 +122,6 @@ export const markRequestFailed = (reason, key) => ({
 });
 
 export const createRequestThunk = ({ request, key, start = [], success = [], failure = [] }) => {
-
   return (...args) => (dispatch) => {
     const requestKey = (typeof key === 'function') ? key(...args) : key;
 

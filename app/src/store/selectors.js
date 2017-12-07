@@ -1,5 +1,5 @@
 export const getMembers = (state) => {
-  return state.members.membersIds.map((id) => state.members.membersById[id])
+  return state.members.memberIdsByAlpha.map((id) => state.members.membersById[id])
 }
 export const getOpenMemberId = (state) => {
   return state.openMemberId

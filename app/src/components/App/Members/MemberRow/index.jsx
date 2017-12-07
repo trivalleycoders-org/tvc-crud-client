@@ -8,7 +8,7 @@ import * as actionCreators from '../../../../store/actions'
 // import * as selectors from '../../../../store/selectors';
 import styles from './style.css'
 
-const MemberRow = ({ member_id, firstName, lastName, email, phoneNumber, openMember, requestDeleteMember }) => {
+const MemberRow = ({ memberId, firstName, lastName, email, phoneNumber, openMember, requestDeleteMember }) => {
 
   // { member_id, firstname, lastname, email }
   const renderItems = (
@@ -17,7 +17,7 @@ const MemberRow = ({ member_id, firstName, lastName, email, phoneNumber, openMem
       <div className={styles.column}>{email}</div>
       <div className={styles.column}>{phoneNumber}</div>
       <div className={styles.column}></div>
-      <Button onClick={() => openMember(member_id)}>Edit</Button>
+      <Button onClick={() => openMember(memberId)}>Edit</Button>
     </div>
   )
   return (

@@ -13,25 +13,32 @@ class Members extends Component {
     this.props.requestReadMembers()
   }
   render() {
-    const { match, members, openMemberId, createMember } = this.props
-
-    // <Link to={`${match.url}/member-edit`}>
+    const { match, members, openMemberId, createMember, readMembersRequest } = this.props
+    // console.log('status:', readMembersRequest.status)
     // ku.log('Members: members', members, 'blue')
-    const renderMembers = openMemberId === null
-      ? members.map((m, index) => (
-          <MemberRow
-            key={m.member_id}
-            member_id={m.member_id}
-            firstName={m.first_name}
-            lastName={m.last_name}
-            email={m.email}
-            phoneNumber={m.phone_number}
-          />
-        ))
-      : (openMemberId === 'create'
-        ? <Redirect to={`${match.url}/member-create`} />
-        : <Redirect to={`${match.url}/member-edit`} />
-      )
+
+    let renderMembers
+    if (readMembersRequest.status === 'success') {
+      renderMembers = openMemberId === null
+        ? members.map((m, index) => (
+            <MemberRow
+              key={m.id}
+              memberId={m.id}
+              firstName={m.firstName}
+              lastName={m.lastName}
+              email={m.email}
+              phoneNumber={m.phoneNumber}
+            />
+          ))
+        : (openMemberId === 'create'
+          ? <Redirect to={`${match.url}/member-create`} />
+          : <Redirect to={`${match.url}/member-edit`} />
+        )
+
+    } else {
+      renderMembers = <h1>Loading...</h1>
+    }
+
     return (
       <div>
         <h1>Members</h1>

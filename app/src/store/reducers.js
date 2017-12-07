@@ -10,12 +10,14 @@ export const membersById = ( state = {}, { type, payload }) => {
       case 'app/updateMember':
       case 'app/createMember': // new/add & update
         // ku.log('reducers.openMemberId app/openMember: type', type, 'orange')
-        return merge(state, { [payload.member_id]: payload })
+        return merge(state, { [payload.id]: payload })
       case 'app/deleteMember':
-        return dissoc(payload.member_id, state)
+        return dissoc(payload.id, state)
       case 'app/replaceMembers': // read list load all
         // ku.log("reducers.membersById app/replaceMembers: payload", payload, 'orange')
-        return payload.members
+        // return payload.members
+        console.log('payload:', payload)
+        return payload.membersById
       default:
         return state
     }
@@ -24,16 +26,19 @@ export const membersById = ( state = {}, { type, payload }) => {
   }
 }
 
-export const membersIds = (state = [], { type, payload }) => {
+// export const membersIds = (state = [], { type, payload }) => {
+export const memberIdsByAlpha = (state = [], { type, payload }) => {
   switch (type) {
     case 'app/replaceMembers':
       // ku.log('reducers.membersIds app/replaceMembers: payload', payload, 'orange')
-      return payload.ids
+      // return payload.ids
+      // console.log('payload:', payload)
+      return payload.idsByAlpha
     case 'app/createMember':
-      return prepend(payload.member_id, state)
+      return prepend(payload.id, state)
     case 'app/deleteMember':
       // ku.log('reducers.membersIds app/deleteMember: payload', payload, 'orange')
-      return without([payload.member_id], state)
+      return without([payload.id], state)
     default:
       return state
   }
@@ -143,7 +148,7 @@ export const upcomingSchedule = (state = {}, { type, payload }) => {
 export default combineReducers({
   members: combineReducers({
     membersById,
-    membersIds,
+    memberIdsByAlpha,
   }),
   schedule: combineReducers({
     scheduleMembersById,

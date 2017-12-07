@@ -2,7 +2,6 @@ import { normalize, Schema, arrayOf } from 'normalizr'
 import * as ku from '../lib/ke-utils'
 
 
-const members = new Schema('members', { idAttribute: 'member_id'})
 const next6 = new Schema('next6', { idAttribute: 'sequence'})
 const roles = new Schema('roles', { idAttribute: 'role_id'})
 const exclusions = new Schema('exclusions', { idAttribute: 'exclusion_id'})
@@ -95,16 +94,6 @@ export default {
         '/members',
         { method: 'GET' }
       )
-        .then((data) => {
-          console.log('members_raw: ', data)
-          const normalized = normalize(data, arrayOf(members))
-          const o = {
-            members: normalized.entities.members || {},
-            ids: normalized.result,
-          }
-          // console.log(o)
-          return o
-        });
     },
     update(id, member) {
       //ku.log('api.members.update: id', id, 'orange')
