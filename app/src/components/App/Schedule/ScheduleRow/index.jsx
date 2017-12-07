@@ -5,7 +5,7 @@ import styles from './style.css'
 import * as ku from '../../../../lib/ke-utils'
 const ScheduleRow = ({ role, memberId, scheduleList, selectMember }) => {
   const scheduleRow = memberId
-    ? scheduleList.find((row) => row.memberId == memberId)
+    ? scheduleList.find((row) => row.memberId === memberId)
     : null
   const memberOptions = scheduleList.map((el, index) =>
     <option key={index} value={el.memberId}>{el.firstName} {el.lastName}</option>

@@ -67,7 +67,6 @@ class Schedule extends Component {
           Auto Schedule
         </button>
       </div>
-
     )
   }
 

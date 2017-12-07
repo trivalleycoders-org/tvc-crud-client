@@ -96,7 +96,7 @@ export default {
         { method: 'GET' }
       )
         .then((data) => {
-          // console.log(data)
+          console.log('members_raw: ', data)
           const normalized = normalize(data, arrayOf(members))
           const o = {
             members: normalized.entities.members || {},
