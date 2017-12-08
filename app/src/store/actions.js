@@ -1,8 +1,6 @@
 import api from '../api/index'
 // import * as ku from '../lib/ke-utils'
-/*
-    payload must always be an object. If you are passing in a string you must put it in an object: e.g., payload: { value }. If the parameter(s) pass in are already an object then do: e.g., payload: objectName.
- */
+
  export const replaceMembers = (members) => {
   // ku.log('replaceMembers: members', members, 'blue')
   return({
@@ -148,12 +146,6 @@ export const requestReadMembers = createRequestThunk({
   success: [ replaceMembers ],
 })
 
-// export const requestCreateResult = createRequestThunk({
-//   request: api.result.create,
-//   key: 'api/createMember',
-//   success: [ replaceResult ],
-// });
-//
 export const requestUpdateMember = createRequestThunk({
   request: api.members.update,
   key: (member_id) => `api/updateMember/${member_id}`,

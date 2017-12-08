@@ -31,8 +31,6 @@ export const memberIdsByAlpha = (state = [], { type, payload }) => {
   switch (type) {
     case 'app/replaceMembers':
       // ku.log('reducers.membersIds app/replaceMembers: payload', payload, 'orange')
-      // return payload.ids
-      // console.log('payload:', payload)
       return payload.idsByAlpha
     case 'app/createMember':
       return prepend(payload.id, state)
@@ -45,8 +43,6 @@ export const memberIdsByAlpha = (state = [], { type, payload }) => {
 }
 
 export const openMemberId = (state = null, { type, payload }) => {
-// *** Maybe name this openMemberId *** see DRE reducer openNoteId ** DO IT!
-// SEE OPEN gedit NOTE
   switch (type) {
     case 'app/openMember':
     case 'app/createMember':
@@ -145,6 +141,8 @@ export const upcomingSchedule = (state = {}, { type, payload }) => {
   }
 }
 
+
+// Some reducers will be removed once Schedule is rewritten to work with the new data structure
 export default combineReducers({
   members: combineReducers({
     membersById,

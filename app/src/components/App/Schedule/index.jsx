@@ -1,17 +1,13 @@
 // ScheduleList
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
 import styles from './style.css'
 import * as actionCreators from '../../../store/actions'
 import * as selectors from '../../../store/selectors'
 import ScheduleRow from './ScheduleRow'
-import * as ku from '../../../lib/ke-utils'
-
 import makeSchedule from './makeSchedule'
 import createScheduleList from './createScheduleList'
-
-/* edit button should only appear when admin is logged in */
+// import * as ku from '../../../lib/ke-utils'
 
 class Schedule extends Component {
   componentDidMount() {
@@ -36,7 +32,7 @@ class Schedule extends Component {
     // ku.log('Schedule: scheduleMembers', scheduleMembers, 'blue')
     // ku.log('Schedule: roles', roles, 'blue')
     // ku.log('Schedule: exclusions', exclusions, 'blue')
-    ku.log('upcomingSchedule', upcomingSchedule, 'blue')
+    // ku.log('upcomingSchedule', upcomingSchedule, 'blue')
 
     const scheduleList = createScheduleList(scheduleMembers, roles, exclusions)
 
@@ -49,12 +45,10 @@ class Schedule extends Component {
         selectMember={this.handleSelectMember}
       />
     ))
-    ku.log('Schedule: scheduleList', scheduleList, 'blue')
+    // ku.log('Schedule: scheduleList', scheduleList, 'blue')
     return (
       <div id='schedule' className={styles.schedule}>
-        <Link to='/editvolunteer'><button id='editScheduleBtn'>Edit</button></Link>
         <h1 className={styles.title}>Volunteer Schedule for [date] </h1>
-        {/* <ScheduleRow /> */}
         <div className={styles.row}>
           <div className={styles.memberDetail}>role</div>
           <div className={styles.memberDetail}>member</div>

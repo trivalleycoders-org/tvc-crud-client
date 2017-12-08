@@ -1,5 +1,5 @@
 import { normalize, Schema, arrayOf } from 'normalizr'
-import * as ku from '../lib/ke-utils'
+// import * as ku from '../lib/ke-utils'
 
 
 const next6 = new Schema('next6', { idAttribute: 'sequence'})
@@ -36,13 +36,13 @@ export default {
         { method: 'GET'}
       )
       .then((data) => {
-        ku.log('api.schedule.scheduleMembers: data', data, 'yellow')
+        // ku.log('api.schedule.scheduleMembers: data', data, 'yellow')
         const normalized = normalize(data, arrayOf(next6))
         const o = {
           scheduleMembers: normalized.entities.next6 || {},
           ids: normalized.result,
         }
-        ku.log('api.schedule.scheduleMembers: o', o, 'yellow')
+        // ku.log('api.schedule.scheduleMembers: o', o, 'yellow')
         return o
       })
     },
