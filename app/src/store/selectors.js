@@ -4,17 +4,17 @@ export const getMembers = (state) => {
 export const getOpenMemberId = (state) => {
   return state.openMemberId
 }
-export const getScheduleMembers = (state) => {
-  return state.schedule.scheduleMembersIds.map((id) => state.schedule.scheduleMembersById[id])
-}
 export const getRoles = (state) => {
-  return state.schedule.rolesIds.map((id) => state.schedule.rolesById[id]);
+  return state.schedule.rolesById
 }
 export const getExclusions = (state) => {
   return state.schedule.exclusionsIds.map((id) => state.schedule.exclusionsById[id]);
 }
-export const getUpcomingSchedule = (state) => {
+export const getSchedule = (state) => {
   return state.schedule.upcomingSchedule
+}
+export const getMemberIdsByLastRoleDate = (state) => {
+  return state.members.memberIdsByLastRoleDate
 }
 // redux selectors
 export const getRequest = (state, key) =>

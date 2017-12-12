@@ -62,11 +62,11 @@ export const deleteMember = (member_id) => {
   })
 }
 
-export const replaceScheduleMembers = (scheduleMembers) => {
+export const replaceSchedule = (schedule) => {
  // ku.log('actions.replaceMembers: next6', next6, 'orange')
  return({
-   type: 'app/scheduleMembers',
-   payload: scheduleMembers,
+   type: 'app/schedule',
+   payload: schedule,
  })
 }
 
@@ -164,10 +164,10 @@ export const requestDeleteMember = createRequestThunk({
   success: [ (member_id) => deleteMember(member_id) ],
 })
 
-export const requestReadScheduleMembers = createRequestThunk({
-  request: api.schedule.scheduleMembers,
-  key: 'api/getReadScheduleMembers',
-  success: [ replaceScheduleMembers ],
+export const requestReadSchedule = createRequestThunk({
+  request: api.schedule.schedule,
+  key: 'api/getReadSchedule',
+  success: [ replaceSchedule ],
 })
 
 export const requestReadRoles = createRequestThunk({

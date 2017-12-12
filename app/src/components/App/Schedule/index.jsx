@@ -5,15 +5,12 @@ import styles from './style.css'
 import * as actionCreators from '../../../store/actions'
 import * as selectors from '../../../store/selectors'
 import ScheduleRow from './ScheduleRow'
-import makeSchedule from './makeSchedule'
-import createScheduleList from './createScheduleList'
 // import * as ku from '../../../lib/ke-utils'
 
 class Schedule extends Component {
   componentDidMount() {
-    this.props.requestReadScheduleMembers()
-    this.props.requestReadExclusions()
-    this.props.requestReadRoles()
+    this.props.requestReadRoles(),
+    this.props.requestReadSchedule('2017-12-25')
   }
 
   handleSelectMember = (roleId, memberId) => {
@@ -22,29 +19,30 @@ class Schedule extends Component {
     })
   }
 
-  handleAutoSchedule = (scheduleList, roles) => {
-    const schedule = makeSchedule(scheduleList, roles)
-    this.props.setSchedule(schedule)
-  }
+  // // could be used as reset
+  // handleAutoSchedule = (scheduleList, roles) => {
+  //   const schedule = makeSchedule(scheduleList, roles)
+  //   this.props.setSchedule(schedule)
+  // }
 
   render() {
-    const { scheduleMembers, roles, exclusions, upcomingSchedule } = this.props
+    const { roles, schedule } = this.props
     // ku.log('Schedule: scheduleMembers', scheduleMembers, 'blue')
     // ku.log('Schedule: roles', roles, 'blue')
     // ku.log('Schedule: exclusions', exclusions, 'blue')
     // ku.log('upcomingSchedule', upcomingSchedule, 'blue')
 
-    const scheduleList = createScheduleList(scheduleMembers, roles, exclusions)
+    const memberSelectList = []//j createScheduleList(scheduleMembers, roles, exclusions)
 
-    const renderList = roles.map((r, index) => (
-      <ScheduleRow
-        key={index}
-        role={r}
-        memberId={upcomingSchedule[r.role_id] || ''}
-        scheduleList={scheduleList}
-        selectMember={this.handleSelectMember}
-      />
-    ))
+    // const renderList = roles.map((r, index) => (
+    //   <ScheduleRow
+    //     key={index}
+    //     role={r}
+    //     memberId={upcomingSchedule[r.role_id] || ''}
+    //     memberSelectList={memberSelectList}
+    //     selectMember={this.handleSelectMember}
+    //   />
+    // ))
     // ku.log('Schedule: scheduleList', scheduleList, 'blue')
     return (
       <div id='schedule' className={styles.schedule}>
@@ -56,10 +54,10 @@ class Schedule extends Component {
           <div className={styles.memberDetail}>comment</div>
           <div className={styles.memberDetail}>contact</div>
         </div>
-        {renderList}
-        <button onClick={(e) => this.handleAutoSchedule(scheduleList, roles)}>
+        {/* {renderList} */}
+        {/* <button onClick={(e) => this.handleAutoSchedule(scheduleList, roles)}>
           Auto Schedule
-        </button>
+        </button> */}
       </div>
     )
   }
@@ -68,10 +66,10 @@ class Schedule extends Component {
 
 const mapStateToProps = (state) => {
   const o = {
-    scheduleMembers: selectors.getScheduleMembers(state),
     roles: selectors.getRoles(state),
-    exclusions: selectors.getExclusions(state),
-    upcomingSchedule: selectors.getUpcomingSchedule(state)
+    schedule: selectors.getSchedule(state),
+    members: selectors.getMembers(state),
+    memberIdsByLastRoleDate: selectors.getMemberIdsByLastRoleDate(state)
   }
   return o
 }

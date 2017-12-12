@@ -30,21 +30,21 @@ export const fetchJson = (url, options = {}) => (
 
 export default {
   schedule: {
-    scheduleMembers() {
+    schedule(date) {
       return fetchJson(
-        '/schedule/scheduleMembers',
+        `/schedule/schedule/${date}`,
         { method: 'GET'}
       )
-      .then((data) => {
-        // ku.log('api.schedule.scheduleMembers: data', data, 'yellow')
-        const normalized = normalize(data, arrayOf(next6))
-        const o = {
-          scheduleMembers: normalized.entities.next6 || {},
-          ids: normalized.result,
-        }
-        // ku.log('api.schedule.scheduleMembers: o', o, 'yellow')
-        return o
-      })
+      // .then((data) => {
+      //   // ku.log('api.schedule.scheduleMembers: data', data, 'yellow')
+      //   // const normalized = normalize(data, arrayOf(next6))
+      //   // const o = {
+      //   //   schedule: normalized.entities.next6 || {},
+      //   //   ids: normalized.result,
+      //   // }
+      //   // ku.log('api.schedule.scheduleMembers: o', o, 'yellow')
+      //   return data
+      // })
     },
     roles() {
       return fetchJson(

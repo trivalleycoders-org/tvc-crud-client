@@ -16,7 +16,7 @@ export const membersById = ( state = {}, { type, payload }) => {
       case 'app/replaceMembers': // read list load all
         // ku.log("reducers.membersById app/replaceMembers: payload", payload, 'orange')
         // return payload.members
-        console.log('payload:', payload)
+        // console.log('payload:', payload)
         return payload.membersById
       default:
         return state
@@ -32,11 +32,20 @@ export const memberIdsByAlpha = (state = [], { type, payload }) => {
     case 'app/replaceMembers':
       // ku.log('reducers.membersIds app/replaceMembers: payload', payload, 'orange')
       return payload.idsByAlpha
-    case 'app/createMember':
-      return prepend(payload.id, state)
-    case 'app/deleteMember':
-      // ku.log('reducers.membersIds app/deleteMember: payload', payload, 'orange')
-      return without([payload.id], state)
+    // case 'app/createMember':
+    //   return prepend(payload.id, state)
+    // case 'app/deleteMember':
+    //   // ku.log('reducers.membersIds app/deleteMember: payload', payload, 'orange')
+    //   return without([payload.id], state)
+    default:
+      return state
+  }
+}
+
+export const memberIdsByLastRoleDate = (state = [], {type, payload}) => {
+  switch (type) {
+    case 'app/replaceMembers':
+      return payload.idsByLastRoleDate
     default:
       return state
   }
@@ -69,25 +78,6 @@ export const requests = (state = {}, { type, payload, meta }) => {
   }
 }
 
-export const scheduleMembersById = (state = null, { type, payload }) => {
-
-  switch (type) {
-    case 'app/scheduleMembers':
-      return payload.scheduleMembers
-    default:
-      return state
-  }
-}
-
-export const scheduleMembersIds = (state = [], { type, payload }) => {
-  switch (type) {
-    case 'app/scheduleMembers':
-      return payload.ids
-    default:
-      return state
-  }
-}
-
 export const rolesById = (state = null, { type, payload }) => {
   // ku.log('reducers.rolesById: type', type, 'orange')
   // ku.log('reducers.rolesById: payload', payload, 'orange')
@@ -99,40 +89,7 @@ export const rolesById = (state = null, { type, payload }) => {
   }
 }
 
-export const rolesIds = (state = [], { type, payload }) => {
-  // ku.log('reducers.rolesIds: type', type, 'orange')
-  // ku.log('reducers.rolesIds: payload', payload, 'orange')
-  switch (type) {
-    case 'app/replaceRoles':
-      return payload.ids
-    default:
-      return state
-  }
-}
-
-export const exclusionsById = (state = null, { type, payload }) => {
-  // ku.log('reducers.exclusionsById: type', type, 'orange')
-  // ku.log('reducers.exclusionsById: payload', payload, 'orange')
-  switch (type) {
-    case 'app/replaceExclusions':
-      return payload.exclusions
-    default:
-      return state
-  }
-}
-
-export const exclusionsIds = (state = [], { type, payload }) => {
-  // ku.log('reducers.exclusionsIds: type', type, 'orange')
-  // ku.log('reducers.exclusionsIds: payload', payload, 'orange')
-  switch (type) {
-    case 'app/replaceExclusions':
-      return payload.ids
-    default:
-      return state
-  }
-}
-
-export const upcomingSchedule = (state = {}, { type, payload }) => {
+export const schedule = (state = {}, { type, payload }) => {
   switch (type) {
     case 'app/setSchedule':
       return merge(state, payload)
@@ -147,15 +104,11 @@ export default combineReducers({
   members: combineReducers({
     membersById,
     memberIdsByAlpha,
+    memberIdsByLastRoleDate,
   }),
   schedule: combineReducers({
-    scheduleMembersById,
-    scheduleMembersIds,
     rolesById,
-    rolesIds,
-    exclusionsById,
-    exclusionsIds,
-    upcomingSchedule,
+    schedule,
   }),
   openMemberId,
   requests,
