@@ -15,12 +15,25 @@ const MemberEdit = ({ members, openMemberId, updateMember, requestUpdateMember, 
     return m.id === openMemberId
   })[0]
 
+  members.find((e) => e.id === openMemberId)
+
   const handleMemberChange = (fieldname, value) => {
     // ku.log(`MemberEdit: ${fieldname}`, value, 'blue');
-    member[fieldname] = value;
-    updateMember(member.id, member);
+    member[fieldname] = value
+    updateMember(member.id, member)
   }
 
+  const handleMemberChangeExclusions = (role_id, checked) => {
+    // add role to exclusions if not already there
+    if (checked && !member.exclusions.includes(role_id)) {
+      member.exclusions = [...member.exclusions, role_id]
+    }
+    // remove role from exclusions if it's there
+    if (!checked && member.exclusions.includes(role_id)) {
+      member.exclusions = member.exclusions.filter(e => e !== role_id)
+    }
+    updateMember(member.id, member)
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -31,13 +44,29 @@ const MemberEdit = ({ members, openMemberId, updateMember, requestUpdateMember, 
     : requestUpdateMember(member.id, member)
   }
 
-  const roleCheckBoxes = ['role1', 'role2', 'role3', 'role4', 'role5', 'role6'].map(role =>
-    <label key={role} className={styles.checkboxInput}>
-      {role}
-      <input type="checkbox" />
-        {/* onChange={(event) => handleMemberChange({role}, event.target.checked)} /> */}
-    </label>
-  )
+  // mocking roles data, need to add this to Members API
+  const roles = [
+    { role_id: 1, role_name: "role01" },
+    { role_id: 2, role_name: "role02" },
+    { role_id: 3, role_name: "role03" },
+    { role_id: 4, role_name: "role04" },
+    { role_id: 5, role_name: "role05" },
+    { role_id: 6, role_name: "role06" },
+  ]
+
+  // can't seem to access the members variable to display checkbox state
+  // also, updateMember doesn't update exclusions (server problem?)
+  const roleCheckBoxes = roles.map((role) => {
+    return (
+      <label key={role.role_id} className={styles.checkboxInput}>
+        {role.role_name}
+        {/* {JSON.stringify(member)} */}
+        {/* {JSON.stringify(member.exclusions)} */}
+        <input type="checkbox" checked={0}
+          onChange={(event) => handleMemberChangeExclusions(role.role_id, event.target.checked)} />
+      </label>
+    )
+  })
 
   const renderForm = openMemberId === null
     ? <Redirect to={'/members'} />
@@ -100,7 +129,8 @@ const MemberEdit = ({ members, openMemberId, updateMember, requestUpdateMember, 
 const mapStateToProps = (state) => {
  const o = {
    members: selectors.getMembers(state),
-   openMemberId: selectors.getOpenMemberId(state)
+   openMemberId: selectors.getOpenMemberId(state),
+   roles: selectors.getRoles(state)
  }
  return o
 }
