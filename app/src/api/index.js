@@ -1,10 +1,4 @@
-import { normalize, Schema, arrayOf } from 'normalizr'
-// import * as ku from '../lib/ke-utils'
-
-
-const next6 = new Schema('next6', { idAttribute: 'sequence'})
-const roles = new Schema('roles', { idAttribute: 'role_id'})
-const exclusions = new Schema('exclusions', { idAttribute: 'exclusion_id'})
+import { log } from '../lib/ke-utils'
 
 export const rejectErrors = (res) => {
   const { status } = res;
@@ -35,6 +29,10 @@ export default {
         `/schedule/schedule/${date}`,
         { method: 'GET'}
       )
+      .then((data) => {
+        // log('api.schedule.schedule: typeof data', data.prototype.toString.call, 'yellow')
+        log('api.schedule.schedule: data', data, 'yellow')
+      })
       // .then((data) => {
       //   // ku.log('api.schedule.scheduleMembers: data', data, 'yellow')
       //   // const normalized = normalize(data, arrayOf(next6))
@@ -52,14 +50,8 @@ export default {
         { method: 'GET'}
       )
       .then((data) => {
-        // ku.log('api.schedule.roles: data', data, 'yellow')
-        const normalized = normalize(data, arrayOf(roles))
-        const o = {
-          roles: normalized.entities.roles || {},
-          ids: normalized.result,
-        }
-        // ku.log('api.schedule.roles: o', o, 'yellow')
-        return o
+        // log('api.schedule.roles: data', data, 'yellow')
+        return data
       })
     },
     exclusions() {
@@ -68,14 +60,7 @@ export default {
         { method: 'GET'}
       )
       .then((data) => {
-        // ku.log('api.schedule.exclusions: data', data, 'yellow')
-        const normalized = normalize(data, arrayOf(exclusions))
-        const o = {
-          exclusions: normalized.entities.exclusions || {},
-          ids: normalized.result,
-        }
-        // ku.log('api.schedule.exclusions: o', o, 'yellow')
-        return o
+        return data
       })
     }
   },

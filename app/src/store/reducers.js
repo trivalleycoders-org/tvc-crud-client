@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
 import { merge, prepend, dissoc, without } from 'ramda'
-import * as ku from '../lib/ke-utils'
+import { log } from '../lib/ke-utils'
 
 export const membersById = ( state = {}, { type, payload }) => {
 
@@ -22,7 +22,7 @@ export const membersById = ( state = {}, { type, payload }) => {
         return state
     }
   } catch (e) {
-    ku.log('reducers.membersById', e, 'red')
+    log('reducers.membersById', e, 'red')
   }
 }
 
@@ -78,12 +78,11 @@ export const requests = (state = {}, { type, payload, meta }) => {
   }
 }
 
-export const rolesById = (state = null, { type, payload }) => {
-  // ku.log('reducers.rolesById: type', type, 'orange')
-  // ku.log('reducers.rolesById: payload', payload, 'orange')
+export const roles = (state = null, { type, payload }) => {
   switch (type) {
     case 'app/replaceRoles':
-      return payload.roles
+      // log('payload', payload, 'orange')
+      return payload
     default:
       return state
   }
@@ -92,12 +91,12 @@ export const rolesById = (state = null, { type, payload }) => {
 export const schedule = (state = {}, { type, payload }) => {
   switch (type) {
     case 'app/setSchedule':
+      log('reducers.schedule: payload', payload, 'orange')
       return merge(state, payload)
     default:
       return state
   }
 }
-
 
 // Some reducers will be removed once Schedule is rewritten to work with the new data structure
 export default combineReducers({
@@ -107,7 +106,7 @@ export default combineReducers({
     memberIdsByLastRoleDate,
   }),
   schedule: combineReducers({
-    rolesById,
+    roles,
     schedule,
   }),
   openMemberId,

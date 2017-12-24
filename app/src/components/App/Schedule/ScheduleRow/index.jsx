@@ -2,18 +2,20 @@
 
 import React from 'react'
 import styles from './style.css'
-// import * as ku from '../../../../lib/ke-utils'
+import { log } from '../../../../lib/ke-utils'
 
 const ScheduleRow = ({ role, memberId, scheduleList, selectMember }) => {
+  // log('role', role, 'blue')
+  // log('memberId', memberId, 'blue')
+  log('scheduleList', scheduleList, 'blue')
+  // log('selectMember', selectMember, 'blue')
   const scheduleRow = memberId
     ? scheduleList.find((row) => row.memberId === memberId)
     : null
   const memberOptions = scheduleList.map((el, index) =>
     <option key={index} value={el.memberId}>{el.firstName} {el.lastName}</option>
   )
-  // ku.log('scheduleList', scheduleList, 'red')
 
-  // ku.log('scheduleRow', scheduleRow, 'red')
   return (
     <div className={styles.row}>
       <div className={styles.memberDetail}> {role.role_name} </div>

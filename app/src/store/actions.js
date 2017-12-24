@@ -1,5 +1,5 @@
 import api from '../api/index'
-// import * as ku from '../lib/ke-utils'
+import { log } from '../lib/ke-utils'
 
  export const replaceMembers = (members) => {
   // ku.log('replaceMembers: members', members, 'blue')
@@ -71,7 +71,7 @@ export const replaceSchedule = (schedule) => {
 }
 
 export const replaceRoles = (roles) => {
- // ku.log('actions.replaceMembers: roles', roles, 'orange')
+ // log('actions.replaceMembers: roles', roles, 'orange')
  return({
    type: 'app/replaceRoles',
    payload: roles,
