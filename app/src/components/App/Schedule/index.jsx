@@ -10,7 +10,8 @@ import { log } from '../../../lib/ke-utils'
 class Schedule extends Component {
   componentDidMount() {
     this.props.requestReadRoles(),
-    this.props.requestReadSchedule('2017-12-25')
+    // this.props.requestReadSchedule('2017-12-25')
+    this.props.requestReadSchedule('2017-09-07')
   }
 
   handleSelectMember = (roleId, memberId) => {
