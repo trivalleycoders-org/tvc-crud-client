@@ -26,23 +26,14 @@ export default {
   schedule: {
     schedule(date) {
       return fetchJson(
-        `/schedule/schedule/${date}`,
+        `/schedule/${date}`,
         { method: 'GET'}
       )
       .then((data) => {
-        // log('api.schedule.schedule: typeof data', data.prototype.toString.call, 'yellow')
-        log('api.schedule.schedule: data', data, 'yellow')
+        // log('api.schedule.schedule: data.length', data.length, 'yellow')
+        // log('api.schedule.schedule: data', data, 'yellow')
+        return data
       })
-      // .then((data) => {
-      //   // ku.log('api.schedule.scheduleMembers: data', data, 'yellow')
-      //   // const normalized = normalize(data, arrayOf(next6))
-      //   // const o = {
-      //   //   schedule: normalized.entities.next6 || {},
-      //   //   ids: normalized.result,
-      //   // }
-      //   // ku.log('api.schedule.scheduleMembers: o', o, 'yellow')
-      //   return data
-      // })
     },
     roles() {
       return fetchJson(
@@ -50,7 +41,6 @@ export default {
         { method: 'GET'}
       )
       .then((data) => {
-        // log('api.schedule.roles: data', data, 'yellow')
         return data
       })
     },
