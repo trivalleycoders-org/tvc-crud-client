@@ -63,9 +63,9 @@ export const deleteMember = (member_id) => {
 }
 
 export const replaceSchedule = (schedule) => {
- // ku.log('actions.replaceMembers: next6', next6, 'orange')
+ log('actions.replaceSchedule: schedule', schedule, 'orange')
  return({
-   type: 'app/schedule',
+   type: 'app/replaceSchedule',
    payload: schedule,
  })
 }
@@ -92,13 +92,13 @@ export const closeMember = () => {
   })
 }
 
-// payload: {role1_id: member32_id, role2_id: member175_id...}
-export const setSchedule = (rolesForMembers) => {
-  return ({
-    type: 'app/setSchedule',
-    payload: rolesForMembers,
-  })
-}
+// // payload: {role1_id: member32_id, role2_id: member175_id...}
+// export const setSchedule = (rolesForMembers) => {
+//   return ({
+//     type: 'app/setSchedule',
+//     payload: rolesForMembers,
+//   })
+// }
 
 export const markRequestPending = (key) => ({
   type: 'app/markRequestPending',
