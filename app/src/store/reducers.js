@@ -88,11 +88,11 @@ export const roles = (state = null, { type, payload }) => {
   }
 }
 
-export const schedule = (state = {}, { type, payload }) => {
+export const schedule = (state = [], { type, payload }) => {
   switch (type) {
-    case 'app/setSchedule':
-      log('reducers.schedule: payload', payload, 'orange')
-      return merge(state, payload)
+    case 'app/replaceSchedule':
+      log('reducers.schedule.app/replaceSchedule: payload', payload, 'orange')
+      return payload
     default:
       return state
   }
