@@ -11,7 +11,7 @@ export const getExclusions = (state) => {
   return state.schedule.exclusionsIds.map((id) => state.schedule.exclusionsById[id]);
 }
 export const getSchedule = (state) => {
-  return state.schedule.upcomingSchedule
+  return state.schedule.schedule
 }
 export const getMemberIdsByLastRoleDate = (state) => {
   return state.members.memberIdsByLastRoleDate
