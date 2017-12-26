@@ -1,4 +1,3 @@
-// ScheduleList
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import styles from './style.css'
@@ -9,7 +8,6 @@ import { log } from '../../../lib/ke-utils'
 
 class Schedule extends Component {
   componentDidMount() {
-    this.props.requestReadRoles(),
     // this.props.requestReadSchedule('2017-12-25')
     this.props.requestReadSchedule('2017-09-07')
   }
@@ -28,26 +26,30 @@ class Schedule extends Component {
 
   render() {
 
-    const { roles, schedule, readRolesRequest } = this.props
+    const { schedule, readScheduleRequest, members } = this.props
+    // log('members', members, 'blue')
 
-    // log('Schedule: readRolesRequest.status', readRolesRequest.status, 'blue' )
-    // make sure we have the date before proceeding
-    if (readRolesRequest.status !== 'success') {
+    // make sure we have the data before proceeding
+    if (readScheduleRequest.status !== 'success') {
       return null
     }
-    // log('Schedule: roles', roles, 'blue')
-    const memberSelectList = []
-    // createScheduleList(scheduleMembers, roles, exclusions)
-
-    const renderList = roles.map((r, index) => (
-      <ScheduleRow
-        key={index}
-        role={r}
-        // memberId={upcomingSchedule[r.role_id] || ''}
-        memberSelectList={memberSelectList}
+    // const memberSelectList = []
+    
+    const renderList2 = schedule.map((r) => {
+      log('r.memberId', typeof r.memberId)
+      
+      const member = members.filter((m) => {
+        return m.id === r.memberId
+      })[0]
+      log('member.firstName', member.firstName, 'blue')
+      return (<ScheduleRow
+        key={r.roleId}
+        roleId={r.roleId}
+        roleName={r.roleName}
+        member={member}
         selectMember={this.handleSelectMember}
       />
-    ))
+    )})
 
     // ku.log('Schedule: scheduleList', scheduleList, 'blue')
     return (
@@ -60,7 +62,7 @@ class Schedule extends Component {
           <div className={styles.memberDetail}>comment</div>
           <div className={styles.memberDetail}>contact</div>
         </div>
-        {renderList}
+        {renderList2}
         {/* <button onClick={(e) => this.handleAutoSchedule(scheduleList, roles)}>
           Auto Schedule
         </button> */}
@@ -71,13 +73,11 @@ class Schedule extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const o = {
-    roles: selectors.getRoles(state),
+  return {
     schedule: selectors.getSchedule(state),
     members: selectors.getMembers(state),
-    memberIdsByLastRoleDate: selectors.getMemberIdsByLastRoleDate(state),
-    readRolesRequest: selectors.getRequest(state, 'api/getReadRoles')
+    // currently not using?? memberIdsByLastRoleDate: selectors.getMemberIdsByLastRoleDate(state),
+    readScheduleRequest: selectors.getRequest(state, 'api/getReadSchedule')
   }
-  return o
 }
 export default connect(mapStateToProps, actionCreators)(Schedule)

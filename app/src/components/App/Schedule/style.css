@@ -10,8 +10,10 @@
 .row {
   display: flex;
   flex-flow: row nowrap;
+  // border: 1px solid blue;
 }
 .memberDetail {
   /*margin-left: 25px;*/
   flex-grow: 10;
+  border: 1px solid blue;
 }

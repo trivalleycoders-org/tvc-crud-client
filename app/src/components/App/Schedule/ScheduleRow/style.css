@@ -5,4 +5,5 @@
 .memberDetail {
   /*margin-left: 25px;*/
   flex-grow: 10;
+  border: 1px solid white;
 }
