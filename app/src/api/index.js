@@ -24,7 +24,7 @@ export const fetchJson = (url, options = {}) => (
 
 export default {
   schedule: {
-    schedule(date) {
+    read(date) {
       return fetchJson(
         `/schedule/${date}`,
         { method: 'GET'}

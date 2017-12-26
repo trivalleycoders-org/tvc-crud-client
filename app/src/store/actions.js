@@ -165,7 +165,7 @@ export const requestDeleteMember = createRequestThunk({
 })
 
 export const requestReadSchedule = createRequestThunk({
-  request: api.schedule.schedule,
+  request: api.schedule.read,
   key: 'api/getReadSchedule',
   success: [ replaceSchedule ],
 })
