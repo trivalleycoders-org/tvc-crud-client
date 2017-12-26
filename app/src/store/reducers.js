@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import { merge, prepend, dissoc, without } from 'ramda'
+import { merge, dissoc } from 'ramda' // prepend, , without
 import { log } from '../lib/ke-utils'
 
 export const membersById = ( state = {}, { type, payload }) => {
@@ -78,15 +78,15 @@ export const requests = (state = {}, { type, payload, meta }) => {
   }
 }
 
-export const roles = (state = null, { type, payload }) => {
-  switch (type) {
-    case 'app/replaceRoles':
-      // log('payload', payload, 'orange')
-      return payload
-    default:
-      return state
-  }
-}
+// export const roles = (state = null, { type, payload }) => {
+//   switch (type) {
+//     case 'app/replaceRoles':
+//       // log('payload', payload, 'orange')
+//       return payload
+//     default:
+//       return state
+//   }
+// }
 
 export const schedule = (state = [], { type, payload }) => {
   switch (type) {
@@ -106,7 +106,6 @@ export default combineReducers({
     memberIdsByLastRoleDate,
   }),
   schedule: combineReducers({
-    roles,
     schedule,
   }),
   openMemberId,
