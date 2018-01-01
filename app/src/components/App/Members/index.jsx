@@ -1,7 +1,7 @@
 // Members
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Redirect } from 'react-router-dom'
+import { Redirect, Link } from 'react-router-dom'
 import * as actionCreators from '../../../store/actions'
 import * as selectors from '../../../store/selectors'
 import MemberRow from './MemberRow'
@@ -9,35 +9,37 @@ import { Table } from 'react-bootstrap'
 // import * as ku from '../../../lib/ke-utils'
 
 class Members extends Component {
-  componentWillMount() {
-    this.props.requestReadMembers()
+  handleAddClick = () => {
+
+    // this.props.router.push({
+    //   pathname: `${this.props.match.url}/members/member-edit`,
+    //   state: {
+    //     action: 'create',
+    //   }
+    // })
+
   }
   render() {
-    const { match, members, openMemberId, createMember, readMembersRequest } = this.props
-    // console.log('status:', readMembersRequest.status)
-    // ku.log('Members: members', members, 'blue')
-
+    const { match, members, openMemberId, requestCreateMember } = this.props
+    console.log('props', this.props, 'blue')
     let renderMembers
-    if (readMembersRequest.status === 'success') {
-      renderMembers = openMemberId === null
-        ? members.map((m, index) => (
-            <MemberRow
-              key={m.id}
-              memberId={m.id}
-              firstName={m.firstName}
-              lastName={m.lastName}
-              email={m.email}
-              phoneNumber={m.phoneNumber}
-            />
-          ))
-        : (openMemberId === 'create'
-          ? <Redirect to={`${match.url}/member-create`} />
-          : <Redirect to={`${match.url}/member-edit`} />
-        )
-
-    } else {
-      renderMembers = <h1>Loading...</h1>
-    }
+    // since requestReadMembers was moved to App I don't think we need this here
+    //if (readMembersRequest.status === 'success') {
+    // and don't need this:  renderMembers = openMemberId === null
+        renderMembers =  members.map((m, index) => (
+              <MemberRow
+                key={m.id}
+                memberId={m.id}
+                firstName={m.firstName}
+                lastName={m.lastName}
+                email={m.email}
+                phoneNumber={m.phoneNumber}
+              />
+            ))
+        // nore this: <Redirect to={`${match.url}/member-edit`} />
+    // } else {
+      // renderMembers = <h1>Loading...</h1>
+    // }
 
     return (
       <div>
@@ -54,13 +56,10 @@ class Members extends Component {
           </thead>
         </Table>
         {renderMembers}
-        {/* <Link to={`${match.url}/member-edit`}><button onClick={() => buttonClick()}>/member-edit</button></Link> */}
-        <button onClick={createMember}>Add</button>
+        <Link to={`${match.url}/member-edit/new`}><button>Add</button></Link>
       </div>
     )
   }
-
-
 }
 
 const mapStateToProps = (state) => {

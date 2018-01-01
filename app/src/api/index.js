@@ -55,14 +55,17 @@ export default {
     }
   },
   members: {
-    create(member) {
+    create() {
+      // log('api.members.create: member', member, 'orange')
       return fetchJson(
         '/members',
         {
           method: 'POST',
-          body: JSON.stringify({ member })
+          // body: JSON.stringify({ member })
         }
-      );
+      ).then((id) => {
+        return id
+      })
     },
     read() {
       return fetchJson(
@@ -89,7 +92,7 @@ export default {
         }
       )
       .then((data) => {
-        console.log(data)
+        // console.log(data)
         return data.affectedRows ? id : -1
       });
     },

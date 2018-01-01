@@ -7,6 +7,7 @@ import App from './components/App'
 import './bootstrap/css/bootstrap.css'
 import './index.css'
 
+
 ReactDOM.render(
   <Provider store={configureStore()}>
     <App />

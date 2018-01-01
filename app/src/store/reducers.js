@@ -1,42 +1,29 @@
 import { combineReducers } from 'redux'
-import { merge, dissoc } from 'ramda' // prepend, , without
+import { merge, dissoc, mergeDeepRight } from 'ramda' // prepend, , without
 import { log } from '../lib/ke-utils'
 
 export const membersById = ( state = {}, { type, payload }) => {
-
-  try {
-    switch (type) {
-      case 'app/updateMemberFormFields':
-      case 'app/updateMember':
-      case 'app/createMember': // new/add & update
-        // ku.log('reducers.openMemberId app/openMember: type', type, 'orange')
-        return merge(state, { [payload.id]: payload })
-      case 'app/deleteMember':
-        return dissoc(payload.id, state)
-      case 'app/replaceMembers': // read list load all
-        // ku.log("reducers.membersById app/replaceMembers: payload", payload, 'orange')
-        // return payload.members
-        // console.log('payload:', payload)
-        return payload.membersById
-      default:
-        return state
-    }
-  } catch (e) {
-    log('reducers.membersById', e, 'red')
+  switch (type) {
+    case 'app/updateMemberFormFields':
+    case 'app/updateMember':
+      return merge(state, { [payload.id]: { [payload.field]: payload.value }})
+    case 'app/createMember': // new/add & update
+      // log('reducers.membersById.createMember: state', state, 'orange')
+      return merge(state, { [payload.id]: payload })
+    case 'app/deleteMember':
+      return dissoc(payload.id, state)
+    case 'app/replaceMembers': // read list load all
+      // log('reducers.membersById.replaceMembers: state', payload.membersById, 'orange')
+      return payload.membersById
+    default:
+      return state
   }
 }
 
-// export const membersIds = (state = [], { type, payload }) => {
 export const memberIdsByAlpha = (state = [], { type, payload }) => {
   switch (type) {
     case 'app/replaceMembers':
-      // ku.log('reducers.membersIds app/replaceMembers: payload', payload, 'orange')
       return payload.idsByAlpha
-    // case 'app/createMember':
-    //   return prepend(payload.id, state)
-    // case 'app/deleteMember':
-    //   // ku.log('reducers.membersIds app/deleteMember: payload', payload, 'orange')
-    //   return without([payload.id], state)
     default:
       return state
   }
@@ -54,10 +41,7 @@ export const memberIdsByLastRoleDate = (state = [], {type, payload}) => {
 export const openMemberId = (state = null, { type, payload }) => {
   switch (type) {
     case 'app/openMember':
-    case 'app/createMember':
-      // ku.log('reducers.openMemberId app/openMember: type', type, 'orange')
-      // ku.log('reducers.openMemberId app/openMember: payload', payload, 'orange')
-      return payload.member_id
+      return payload.id
     case 'app/closeMember':
       return null
     default:
@@ -78,27 +62,15 @@ export const requests = (state = {}, { type, payload, meta }) => {
   }
 }
 
-// export const roles = (state = null, { type, payload }) => {
-//   switch (type) {
-//     case 'app/replaceRoles':
-//       // log('payload', payload, 'orange')
-//       return payload
-//     default:
-//       return state
-//   }
-// }
-
 export const schedule = (state = [], { type, payload }) => {
   switch (type) {
     case 'app/replaceSchedule':
-      log('reducers.schedule.app/replaceSchedule: payload', payload, 'orange')
       return payload
     default:
       return state
   }
 }
 
-// Some reducers will be removed once Schedule is rewritten to work with the new data structure
 export default combineReducers({
   members: combineReducers({
     membersById,

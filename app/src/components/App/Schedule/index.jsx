@@ -34,10 +34,10 @@ class Schedule extends Component {
       return null
     }
     // const memberSelectList = []
-    
+
     const renderList2 = schedule.map((r) => {
-      log('r.memberId', typeof r.memberId)
-      
+      // log('r.memberId', typeof r.memberId)
+
       const member = members.filter((m) => {
         return m.id === r.memberId
       })[0]

@@ -9,48 +9,47 @@ import { log } from '../lib/ke-utils'
   })
 }
 
-export const openMember = (member_id) => {
+export const openMember = (id) => {
+  log('actions.openmemberId: id', id, 'orange')
   return ({
     type: 'app/openMember',
-    payload: { member_id },
+    payload:  { id } ,
   })
 }
 
-export const createMember = () => {
+export const createMember = (member) => {
+  log('actions.createMember: member.id', member.id, 'orange')
+  log('actions.createMember: member', member, 'orange')
   return ({
     type: 'app/createMember',
-    payload: {
-      'member_id': 'create',
-      'first_name': '',
-      'last_name': '',
-      'email': '',
-      'exempt': false,
-      'comment': '',
-      'phone_number': '',
-      'active': 1,
-    },
+    payload: member,
   })
 }
 
-export const updateMember = (member_id, member) => {
-  // ku.log('actions.updateMember: member_id', member_id, 'orange')
-  // ku.log('actions.updateMember: member', member, 'orange')
+export const updateMember = (id, field, value) => {
+  // log('actions.updateMember: member_id', member_id, 'orange')
+  // log('actions.updateMember: member', member, 'orange')
 
   return ({
     type: 'app/updateMember',
+    // payload: {
+    //   'id': member_id,
+    //   'firstName': member.firstName,
+    //   'lastName': member.lastName,
+    //   'email': member.email,
+    //   'exempt': member.exempt,
+    //   'comment': member.comment,
+    //   'phoneNumber': member.phoneNumber,
+    //   'active': member.active,
+    //   'lastRoleDate': member.lastRoleDate,
+    //   'lastRoleName': member.lastRoleName,
+    //   'exclusions': member.exclusions,
+    // },
     payload: {
-      'id': member_id,
-      'firstName': member.firstName,
-      'lastName': member.lastName,
-      'email': member.email,
-      'exempt': member.exempt,
-      'comment': member.comment,
-      'phoneNumber': member.phoneNumber,
-      'active': member.active,
-      'lastRoleDate': member.lastRoleDate,
-      'lastRoleName': member.lastRoleName,
-      'exclusions': member.exclusions,
-    },
+      id,
+      field,
+      value,
+    }
   })
 }
 
@@ -63,7 +62,7 @@ export const deleteMember = (member_id) => {
 }
 
 export const replaceSchedule = (schedule) => {
- log('actions.replaceSchedule: schedule', schedule, 'orange')
+ // log('actions.replaceSchedule: schedule', schedule, 'orange')
  return({
    type: 'app/replaceSchedule',
    payload: schedule,
@@ -92,21 +91,12 @@ export const closeMember = () => {
   })
 }
 
-// // payload: {role1_id: member32_id, role2_id: member175_id...}
-// export const setSchedule = (rolesForMembers) => {
-//   return ({
-//     type: 'app/setSchedule',
-//     payload: rolesForMembers,
-//   })
-// }
-
 export const markRequestPending = (key) => ({
   type: 'app/markRequestPending',
   meta: { key },
 });
 
 export const markRequestSuccess = (key) => {
-  // you can use console.log() here
   return ({
     type: 'app/markRequestSuccess',
     meta: { key },
@@ -138,7 +128,10 @@ export const createRequestThunk = ({ request, key, start = [], success = [], fai
 };
 
 export const logError = (err) => {
-  console.log(err)
+  log('actions.logError', err, 'red')
+}
+export const logReturnValue = (value) => {
+  log('actions.logReturnValue', value, 'orange')
 }
 export const requestReadMembers = createRequestThunk({
   request: api.members.read,
@@ -152,10 +145,12 @@ export const requestUpdateMember = createRequestThunk({
   success: [ closeMember ],
 })
 
+// Retnruns a member with id property only
 export const requestCreateMember = createRequestThunk({
   request: api.members.create,
   key: 'api/createMember',
-  success: [ closeMember ],
+  success: [ createMember, (member) => openMember(member.id), requestReadMembers ],
+  failure: [ (err) => logError(err) ],
 })
 
 export const requestDeleteMember = createRequestThunk({
