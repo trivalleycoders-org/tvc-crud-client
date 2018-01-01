@@ -6,15 +6,11 @@ export const membersById = ( state = {}, { type, payload }) => {
   switch (type) {
     case 'app/updateMemberFormFields':
     case 'app/updateMember':
-      return merge(state, { [payload.id]: { [payload.field]: payload.value }})
+      return mergeDeepRight(state, { [payload.id]: { [payload.field]: payload.value }})
     case 'app/createMember': // new/add & update
-      // log('reducers.membersById.createMember: state', state, 'orange')
       return merge(state, { [payload.id]: payload })
     case 'app/deleteMember':
       return dissoc(payload.id, state)
-    case 'app/replaceMembers': // read list load all
-      // log('reducers.membersById.replaceMembers: state', payload.membersById, 'orange')
-      return payload.membersById
     default:
       return state
   }
