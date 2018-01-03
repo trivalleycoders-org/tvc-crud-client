@@ -40,9 +40,6 @@ export default {
         '/schedule/roles',
         { method: 'GET'}
       )
-      .then((data) => {
-        return data
-      })
     },
     exclusions() {
       return fetchJson(
@@ -52,6 +49,14 @@ export default {
       .then((data) => {
         return data
       })
+    }
+  },
+  roles: {
+    read() {
+      return fetchJson(
+        '/roles',
+        { method: 'GET'}
+      )
     }
   },
   members: {

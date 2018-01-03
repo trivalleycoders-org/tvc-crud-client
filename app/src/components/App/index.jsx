@@ -13,6 +13,7 @@ import { log } from '../../lib/ke-utils'
 class App extends Component {
   componentWillMount() {
     this.props.requestReadMembers()
+    this.props.requestReadRoles()
   }
 
   render() {
@@ -40,7 +41,7 @@ class App extends Component {
 }
 
 const mapStateToProps = (state) => {
-
+  return {}
 }
 
 export default connect(mapStateToProps, actionCreators)(App)

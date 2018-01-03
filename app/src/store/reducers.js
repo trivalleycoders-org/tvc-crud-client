@@ -4,13 +4,14 @@ import { log } from '../lib/ke-utils'
 
 export const membersById = ( state = {}, { type, payload }) => {
   switch (type) {
-    case 'app/updateMemberFormFields':
-    case 'app/updateMember':
-      return mergeDeepRight(state, { [payload.id]: { [payload.field]: payload.value }})
     case 'app/createMember': // new/add & update
       return merge(state, { [payload.id]: payload })
     case 'app/deleteMember':
       return dissoc(payload.id, state)
+    case 'app/replaceMembers':
+      return payload.membersById
+    case 'app/updateMember':
+      return mergeDeepRight(state, { [payload.id]: { [payload.field]: payload.value }})
     default:
       return state
   }
@@ -67,6 +68,16 @@ export const schedule = (state = [], { type, payload }) => {
   }
 }
 
+export const roles = (state = [], { type, payload }) => {
+  switch (type) {
+    case 'app/replaceRoles':
+      return payload
+    default:
+      return state
+  }
+}
+
+
 export default combineReducers({
   members: combineReducers({
     membersById,
@@ -76,6 +87,7 @@ export default combineReducers({
   schedule: combineReducers({
     schedule,
   }),
+  roles,
   openMemberId,
   requests,
 })

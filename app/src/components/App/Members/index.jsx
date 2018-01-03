@@ -6,27 +6,13 @@ import * as actionCreators from '../../../store/actions'
 import * as selectors from '../../../store/selectors'
 import MemberRow from './MemberRow'
 import { Table } from 'react-bootstrap'
-// import * as ku from '../../../lib/ke-utils'
+import { log } from '../../../lib/ke-utils'
 
 class Members extends Component {
-  handleAddClick = () => {
-
-    // this.props.router.push({
-    //   pathname: `${this.props.match.url}/members/member-edit`,
-    //   state: {
-    //     action: 'create',
-    //   }
-    // })
-
-  }
   render() {
-    const { match, members, openMemberId, requestCreateMember } = this.props
-    console.log('props', this.props, 'blue')
-    let renderMembers
-    // since requestReadMembers was moved to App I don't think we need this here
-    //if (readMembersRequest.status === 'success') {
-    // and don't need this:  renderMembers = openMemberId === null
-        renderMembers =  members.map((m, index) => (
+    const { match, members } = this.props
+    // log('members', members, 'blue')
+    let renderMembers =  members.map((m, index) => (
               <MemberRow
                 key={m.id}
                 memberId={m.id}
@@ -36,10 +22,6 @@ class Members extends Component {
                 phoneNumber={m.phoneNumber}
               />
             ))
-        // nore this: <Redirect to={`${match.url}/member-edit`} />
-    // } else {
-      // renderMembers = <h1>Loading...</h1>
-    // }
 
     return (
       <div>

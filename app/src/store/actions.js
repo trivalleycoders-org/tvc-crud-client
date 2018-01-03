@@ -166,7 +166,7 @@ export const requestReadSchedule = createRequestThunk({
 })
 
 export const requestReadRoles = createRequestThunk({
-  request: api.schedule.roles,
+  request: api.roles.read,
   key: 'api/getReadRoles',
   success: [ replaceRoles ],
 })

@@ -8,7 +8,7 @@ export const getOpenMemberId = (state) => {
   return state.openMemberId
 }
 export const getRoles = (state) => {
-  return state.schedule.roles
+  return state.roles
 }
 export const getExclusions = (state) => {
   return state.schedule.exclusionsIds.map((id) => state.schedule.exclusionsById[id]);
