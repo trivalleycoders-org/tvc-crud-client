@@ -19,7 +19,7 @@ export const fetchJson = (url, options = {}) => (
     },
   })
   .then(rejectErrors)
-  .then((res) => res.json())//I bet this .json does not need to be here
+  .then((res) => res.json())
 );
 
 export default {
@@ -40,9 +40,6 @@ export default {
         '/schedule/roles',
         { method: 'GET'}
       )
-      .then((data) => {
-        return data
-      })
     },
     exclusions() {
       return fetchJson(
@@ -54,6 +51,14 @@ export default {
       })
     }
   },
+  roles: {
+    read() {
+      return fetchJson(
+        '/roles',
+        { method: 'GET'}
+      )
+    }
+  },
   members: {
     create() {
       // log('api.members.create: member', member, 'orange')
@@ -61,7 +66,6 @@ export default {
         '/members',
         {
           method: 'POST',
-          // body: JSON.stringify({ member })
         }
       ).then((id) => {
         return id
@@ -76,6 +80,7 @@ export default {
     update(id, member) {
       //ku.log('api.members.update: id', id, 'orange')
       //ku.log('api.members.update: member', member, 'orange')
+      member.status = null
       return fetchJson(
         `/members/${id}`,
         {

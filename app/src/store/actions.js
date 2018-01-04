@@ -2,7 +2,8 @@ import api from '../api/index'
 import { log } from '../lib/ke-utils'
 
  export const replaceMembers = (members) => {
-  // ku.log('replaceMembers: members', members, 'blue')
+  // ku.log('replaceMembers: members', members, 'orange')
+  log('actions.replaceMembers', '', 'yellow')
   return({
     type: 'app/replaceMembers',
     payload: members,
@@ -10,7 +11,8 @@ import { log } from '../lib/ke-utils'
 }
 
 export const openMember = (id) => {
-  log('actions.openmemberId: id', id, 'orange')
+  // log('actions.openmemberId: id', id, 'orange')
+  log('actions.openMember', '', 'yellow')
   return ({
     type: 'app/openMember',
     payload:  { id } ,
@@ -18,20 +20,21 @@ export const openMember = (id) => {
 }
 
 export const createMember = (member) => {
-  log('actions.createMember: member.id', member.id, 'orange')
-  log('actions.createMember: member', member, 'orange')
+  // log('actions.createMember: member.id', member.id, 'orange')
+  // log('actions.createMember: member', member, 'orange')
+  log('actions.createMember', '', 'yellow')
   return ({
     type: 'app/createMember',
     payload: member,
   })
 }
 
-export const updateMember = (id, field, value) => {
-  // log('actions.updateMember: member_id', member_id, 'orange')
-  // log('actions.updateMember: member', member, 'orange')
-
+export const updateMemberLocal = (id, field, value) => {
+  // log('actions.updateMemberLocal: member_id', member_id, 'orange')
+  // log('actions.updateMemberLocal: member', member, 'orange')
+  log('actions.updateMemberLocal', '', 'yellow')
   return ({
-    type: 'app/updateMember',
+    type: 'app/updateMemberLocal',
     // payload: {
     //   'id': member_id,
     //   'firstName': member.firstName,
@@ -54,6 +57,7 @@ export const updateMember = (id, field, value) => {
 }
 
 export const deleteMember = (member_id) => {
+  log('actions.deleteMember', '', 'yellow')
   // ku.log('actions.deleteMember: member_id', member_id, 'orange')
   return ({
     type: 'app/deleteMember',
@@ -62,6 +66,7 @@ export const deleteMember = (member_id) => {
 }
 
 export const replaceSchedule = (schedule) => {
+  log('actions.replaceSchedule', '', 'yellow')
  // log('actions.replaceSchedule: schedule', schedule, 'orange')
  return({
    type: 'app/replaceSchedule',
@@ -70,6 +75,7 @@ export const replaceSchedule = (schedule) => {
 }
 
 export const replaceRoles = (roles) => {
+  log('actions.replaceRoles', '', 'yellow')
  // log('actions.replaceMembers: roles', roles, 'orange')
  return({
    type: 'app/replaceRoles',
@@ -79,35 +85,44 @@ export const replaceRoles = (roles) => {
 
 export const replaceExclusions = (exclusions) => {
  // ku.log('actions.replaceMembers: exclusions', exclusions, 'orange')
+ log('actions.replaceExclusions', '', 'yellow')
  return({
    type: 'app/replaceExclusions',
    payload: exclusions,
  })
 }
 
-export const closeMember = () => {
+export const closeMember = (result) => {
+  log('actions.closeMember', result, 'yellow')
   return ({
     type: 'app/closeMember',
   })
 }
 
-export const markRequestPending = (key) => ({
-  type: 'app/markRequestPending',
-  meta: { key },
-});
+export const markRequestPending = (key) => {
+  log(`pending (${key})`, '', 'blue')
+  return {
+    type: 'app/markRequestPending',
+    meta: { key },
+  }
+};
 
 export const markRequestSuccess = (key) => {
+  log(`success (${key})`, '', 'blue')
   return ({
     type: 'app/markRequestSuccess',
     meta: { key },
   });
 }
 
-export const markRequestFailed = (reason, key) => ({
-  type: 'app/markRequestFailed',
-  payload: reason,
-  meta: { key },
-});
+export const markRequestFailed = (reason, key) => {
+  log(`failed (${key})`, '', 'blue')
+  return {
+    type: 'app/markRequestFailed',
+    payload: reason,
+    meta: { key },
+  }
+}
 
 export const createRequestThunk = ({ request, key, start = [], success = [], failure = [] }) => {
   return (...args) => (dispatch) => {
@@ -117,7 +132,10 @@ export const createRequestThunk = ({ request, key, start = [], success = [], fai
     dispatch(markRequestPending(requestKey));
     return request(...args)
       .then((data) => {
-        success.forEach((actionCreator) => dispatch(actionCreator(data)));
+        success.forEach((actionCreator) => {
+          // log(`actionCreator.type=${actionCreator}`, '', 'red')
+          dispatch(actionCreator(data))
+        })
         dispatch(markRequestSuccess(requestKey));
       })
       .catch((reason) => {
@@ -131,48 +149,58 @@ export const logError = (err) => {
   log('actions.logError', err, 'red')
 }
 export const logReturnValue = (value) => {
-  log('actions.logReturnValue', value, 'orange')
+  log('actions.logReturnValue', value, 'green')
+  return ({
+    type: 'app/noAction'
+  })
 }
+
 export const requestReadMembers = createRequestThunk({
   request: api.members.read,
   key: 'api/getReadMembers',
-  success: [ replaceMembers ],
+  success: [ replaceMembers,  (value) => logReturnValue(value)],
 })
 
+// const testAction = () => {
+//   log('error', '', 'red')
+// }
 export const requestUpdateMember = createRequestThunk({
   request: api.members.update,
   key: (member_id) => `api/updateMember/${member_id}`,
-  success: [ closeMember ],
+  success: [ closeMember,  (value) => logReturnValue(value) ],
+  failure: [ (value) => logReturnValue(value)]
+  // failure: [ (err) => logError(err) ],
+  // failure: [ testAction ]
 })
 
 // Retnruns a member with id property only
 export const requestCreateMember = createRequestThunk({
   request: api.members.create,
   key: 'api/createMember',
-  success: [ createMember, (member) => openMember(member.id), requestReadMembers ],
+  success: [ createMember, (member) => openMember(member.id), requestReadMembers,  (value) => logReturnValue(value) ],
   failure: [ (err) => logError(err) ],
 })
 
 export const requestDeleteMember = createRequestThunk({
   request: api.members.delete,
   key: (member_id) => `api/deleteMember/${member_id}`,
-  success: [ (member_id) => deleteMember(member_id) ],
+  success: [ (member_id) => deleteMember(member_id) ,  (value) => logReturnValue(value) ],
 })
 
 export const requestReadSchedule = createRequestThunk({
   request: api.schedule.read,
   key: 'api/getReadSchedule',
-  success: [ replaceSchedule ],
+  success: [ replaceSchedule,  (value) => logReturnValue(value) ],
 })
 
 export const requestReadRoles = createRequestThunk({
-  request: api.schedule.roles,
+  request: api.roles.read,
   key: 'api/getReadRoles',
-  success: [ replaceRoles ],
+  success: [ replaceRoles,  (value) => logReturnValue(value) ],
 })
 
 export const requestReadExclusions = createRequestThunk({
   request: api.schedule.exclusions,
   key: 'api/getReadExclusions',
-  success: [ replaceExclusions ],
+  success: [ replaceExclusions,  (value) => logReturnValue(value) ],
 })

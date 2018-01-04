@@ -1,32 +1,27 @@
 // Members
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Redirect, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import * as actionCreators from '../../../store/actions'
 import * as selectors from '../../../store/selectors'
 import MemberRow from './MemberRow'
 import { Table } from 'react-bootstrap'
-// import * as ku from '../../../lib/ke-utils'
+import { log } from '../../../lib/ke-utils'
 
 class Members extends Component {
-  handleAddClick = () => {
-
-    // this.props.router.push({
-    //   pathname: `${this.props.match.url}/members/member-edit`,
-    //   state: {
-    //     action: 'create',
-    //   }
-    // })
-
+  componentDidMount() {
+    log('Members.componentDidMount', '', 'pink')
   }
   render() {
-    const { match, members, openMemberId, requestCreateMember } = this.props
-    console.log('props', this.props, 'blue')
-    let renderMembers
-    // since requestReadMembers was moved to App I don't think we need this here
-    //if (readMembersRequest.status === 'success') {
-    // and don't need this:  renderMembers = openMemberId === null
-        renderMembers =  members.map((m, index) => (
+
+    const { match, members, readRequestReadMembers, readRequestReadRoles } = this.props
+    if (readRequestReadMembers.status !== 'success' || readRequestReadRoles.status !== 'success' ) {
+      return (
+        <h1>Loading ... </h1>
+      )
+    }
+
+    let renderMembers =  members.map((m, index) => (
               <MemberRow
                 key={m.id}
                 memberId={m.id}
@@ -34,12 +29,9 @@ class Members extends Component {
                 lastName={m.lastName}
                 email={m.email}
                 phoneNumber={m.phoneNumber}
+                match={match}
               />
             ))
-        // nore this: <Redirect to={`${match.url}/member-edit`} />
-    // } else {
-      // renderMembers = <h1>Loading...</h1>
-    // }
 
     return (
       <div>
@@ -65,8 +57,8 @@ class Members extends Component {
 const mapStateToProps = (state) => {
   const o = {
     members: selectors.getMembers(state),
-    readMembersRequest: selectors.getRequest(state, 'api/getReadMembers'),
-    openMemberId: selectors.getOpenMemberId(state)
+    readRequestReadRoles: selectors.getRequest(state, 'api/getReadRoles'),
+    readRequestReadMembers: selectors.getRequest(state, 'api/getReadMembers')
   }
   return o
 }

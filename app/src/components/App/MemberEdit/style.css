@@ -28,14 +28,6 @@ form {
   resize: none;
 }
 
-.checkboxInput {
-  display: block;
-}
-
-.checkboxInput input {
-  float: right;
-}
-
 .saveBtn, .doneBtn {
   margin: 10px 0 10px 10px;
   font-size: 20px;
