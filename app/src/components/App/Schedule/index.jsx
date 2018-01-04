@@ -34,7 +34,6 @@ class Schedule extends Component {
     if (readScheduleRequest.status !== 'success') {
       return null
     }
-    // const memberSelectList = []
 
     const renderList2 = schedule.map((r) => {
       // log('r.memberId', typeof r.memberId)
@@ -49,7 +48,7 @@ class Schedule extends Component {
         roleName={r.roleName}
         member={member}
         selectMember={this.handleSelectMember}
-      />
+              />
     )})
 
     // ku.log('Schedule: scheduleList', scheduleList, 'blue')

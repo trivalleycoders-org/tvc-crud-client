@@ -18,7 +18,6 @@ class App extends Component {
   }
 
   render() {
-    // log('props', this.props, 'blue')
     const { readRequestReadMembers, readRequestReadRoles } = this.props
     if (readRequestReadMembers !== 'success' || readRequestReadRoles !== 'success')
     return (

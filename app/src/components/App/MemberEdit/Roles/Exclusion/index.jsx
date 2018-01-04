@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { log } from '../../../../../lib/ke-utils'
+// import { log } from '../../../../../lib/ke-utils'
 
 class Exclusion extends Component {
   constructor(props) {
@@ -9,11 +9,6 @@ class Exclusion extends Component {
     }
   }
   handleCheckboxChange = (event) => {
-    // log('checked', event.target.checked, 'blue')
-    //
-    // this.setState((prevState, props) => ({
-    //   checked: !prevState.checked
-    // }))
     this.setState({
       checked: event.target.checked,
     })

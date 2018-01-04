@@ -14,7 +14,7 @@ class MemberEdit extends Component {
     log('MemberEdit.componentDidMount', '', 'pink')
 
     if (this.props.match.params.action === 'new') {
-      /* if action */ this.props.requestCreateMember()
+      this.props.requestCreateMember()
     }
 
   }
@@ -25,19 +25,11 @@ class MemberEdit extends Component {
     this.props.updateMemberLocal(this.props.openMemberId, fieldname, value);
   }
 
-  // handleSubmit = () => {
-  //   // log(`handleSubmit()`)
-  //   // call requestUpdateMember(id, member)
-  //   this.props.requestUpdateMember(this.props.openMemberId, this.props.member)
-  //
-  // }
-
   render() {
 
     const { member, readRequestCreateMember, readRequestReadMembers, closeMember, roles, match, requestUpdateMember } = this.props
     // log('action', match.params.action, 'blue')
     // log('match', match, 'blue')
-
 
     if (readRequestCreateMember.status !== 'success' || readRequestReadMembers.status !== 'success') {
       return (
@@ -49,7 +41,6 @@ class MemberEdit extends Component {
     return (
       <div>
         <h2 className={styles.memberName}>{member.firstName} {member.lastName}</h2>
-        {/* <form onSubmit={this.handleSubmit}> */}
         <form>
           <label className={styles.textInput}>
             First
@@ -94,7 +85,6 @@ class MemberEdit extends Component {
             exclusions={member.exclusions}
             handleMemberChange={this.handleMemberChange}
           />
-          
           <Link to='/members'><button className={styles.saveButton} onClick={() => requestUpdateMember(member.id, member)}>Save</button></Link>
           <Link to='/members'><button className={styles.doneBtn} onClick={() => closeMember()}>Done</button></Link>
         </form>
@@ -105,7 +95,7 @@ class MemberEdit extends Component {
 
 const mapStateToProps = (state) => {
   const openMemberId = selectors.getOpenMemberId(state)
-  log('MemberEdit.openMemberId', openMemberId, 'blue')
+  // log('MemberEdit.openMemberId', openMemberId, 'blue')
 
   const o = {
     member: selectors.getMember(state, openMemberId),

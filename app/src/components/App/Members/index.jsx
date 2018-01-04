@@ -14,8 +14,7 @@ class Members extends Component {
   }
   render() {
 
-    const { match, members, readRequestReadMembers, /*readRequestUpdateMember,*/ readRequestReadRoles } = this.props
-    // log('Members.render', '', 'pink')
+    const { match, members, readRequestReadMembers, readRequestReadRoles } = this.props
     if (readRequestReadMembers.status !== 'success' || readRequestReadRoles.status !== 'success'  /*|| readRequestUpdateMember.status !== 'success'*/ ) {
       return (
         <h1>Loading ... </h1>
@@ -58,10 +57,7 @@ class Members extends Component {
 const mapStateToProps = (state) => {
   const o = {
     members: selectors.getMembers(state),
-    readRequestReadMembers: selectors.getRequest(state, 'api/getReadMembers'),
-    // readRequestUpdateMember: selectors.getRequest(state, 'api/updateMember'),
     readRequestReadRoles: selectors.getRequest(state, 'api/getReadRoles'),
-
   }
   return o
 }

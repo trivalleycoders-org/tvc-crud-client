@@ -19,7 +19,7 @@ export const fetchJson = (url, options = {}) => (
     },
   })
   .then(rejectErrors)
-  .then((res) => res.json())//I bet this .json does not need to be here
+  .then((res) => res.json())
 );
 
 export default {
@@ -66,7 +66,6 @@ export default {
         '/members',
         {
           method: 'POST',
-          // body: JSON.stringify({ member })
         }
       ).then((id) => {
         return id
