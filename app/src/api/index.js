@@ -81,6 +81,7 @@ export default {
     update(id, member) {
       //ku.log('api.members.update: id', id, 'orange')
       //ku.log('api.members.update: member', member, 'orange')
+      member.status = null
       return fetchJson(
         `/members/${id}`,
         {

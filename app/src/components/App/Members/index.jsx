@@ -1,7 +1,7 @@
 // Members
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Redirect, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import * as actionCreators from '../../../store/actions'
 import * as selectors from '../../../store/selectors'
 import MemberRow from './MemberRow'
@@ -9,9 +9,19 @@ import { Table } from 'react-bootstrap'
 import { log } from '../../../lib/ke-utils'
 
 class Members extends Component {
+  componentDidMount() {
+    log('Members.componentDidMount', '', 'pink')
+  }
   render() {
-    const { match, members } = this.props
-    // log('members', members, 'blue')
+
+    const { match, members, readRequestReadMembers, /*readRequestUpdateMember,*/ readRequestReadRoles } = this.props
+    // log('Members.render', '', 'pink')
+    if (readRequestReadMembers.status !== 'success' || readRequestReadRoles.status !== 'success'  /*|| readRequestUpdateMember.status !== 'success'*/ ) {
+      return (
+        <h1>Loading ... </h1>
+      )
+    }
+
     let renderMembers =  members.map((m, index) => (
               <MemberRow
                 key={m.id}
@@ -20,6 +30,7 @@ class Members extends Component {
                 lastName={m.lastName}
                 email={m.email}
                 phoneNumber={m.phoneNumber}
+                match={match}
               />
             ))
 
@@ -47,8 +58,10 @@ class Members extends Component {
 const mapStateToProps = (state) => {
   const o = {
     members: selectors.getMembers(state),
-    readMembersRequest: selectors.getRequest(state, 'api/getReadMembers'),
-    openMemberId: selectors.getOpenMemberId(state)
+    readRequestReadMembers: selectors.getRequest(state, 'api/getReadMembers'),
+    // readRequestUpdateMember: selectors.getRequest(state, 'api/updateMember'),
+    readRequestReadRoles: selectors.getRequest(state, 'api/getReadRoles'),
+
   }
   return o
 }

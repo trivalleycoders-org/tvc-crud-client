@@ -10,8 +10,10 @@ export const membersById = ( state = {}, { type, payload }) => {
       return dissoc(payload.id, state)
     case 'app/replaceMembers':
       return payload.membersById
-    case 'app/updateMember':
+    case 'app/updateMemberLocal':
       return mergeDeepRight(state, { [payload.id]: { [payload.field]: payload.value }})
+    case 'app/updateMember':
+      // falls through to default. Member is already in state so no need to make a change state
     default:
       return state
   }

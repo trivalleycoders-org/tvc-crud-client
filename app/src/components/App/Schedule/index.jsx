@@ -8,6 +8,7 @@ import { log } from '../../../lib/ke-utils'
 
 class Schedule extends Component {
   componentDidMount() {
+    log('Schedule.componentDidMount', '', 'pink')
     // this.props.requestReadSchedule('2017-12-25')
     this.props.requestReadSchedule('2017-09-07')
   }
@@ -41,7 +42,7 @@ class Schedule extends Component {
       const member = members.filter((m) => {
         return m.id === r.memberId
       })[0]
-      log('member.firstName', member.firstName, 'blue')
+      // log('member.firstName', member.firstName, 'blue')
       return (<ScheduleRow
         key={r.roleId}
         roleId={r.roleId}

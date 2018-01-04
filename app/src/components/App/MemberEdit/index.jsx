@@ -11,33 +11,46 @@ import { log } from '../../../lib/ke-utils'
 
 class MemberEdit extends Component {
   componentDidMount() {
-    this.props.requestCreateMember()
+    log('MemberEdit.componentDidMount', '', 'pink')
+
+    if (this.props.match.params.action === 'new') {
+      /* if action */ this.props.requestCreateMember()
+    }
+
   }
 
   handleMemberChange = (fieldname, value) => {
     // console.clear()
     // log('incomming values: ', `fieldname: ${fieldname}, value: ${value}`, 'blue');
-    this.props.updateMember(this.props.openMemberId, fieldname, value);
+    this.props.updateMemberLocal(this.props.openMemberId, fieldname, value);
   }
 
-  handleSubmit = () => {
-    log(`handleSubmit()`)
-  }
+  // handleSubmit = () => {
+  //   // log(`handleSubmit()`)
+  //   // call requestUpdateMember(id, member)
+  //   this.props.requestUpdateMember(this.props.openMemberId, this.props.member)
+  //
+  // }
 
   render() {
 
-    const { member, readRequestCreateMember, readRequestReadMembers, closeMember, roles } = this.props
+    const { member, readRequestCreateMember, readRequestReadMembers, closeMember, roles, match, requestUpdateMember } = this.props
+    // log('action', match.params.action, 'blue')
+    // log('match', match, 'blue')
+
 
     if (readRequestCreateMember.status !== 'success' || readRequestReadMembers.status !== 'success') {
       return (
         <h1>Loading ... </h1>
       )
     }
+    // log('MemberEdit.member', member, 'blue')
     // log('exclusions', member.exclusions, 'blue')
     return (
       <div>
         <h2 className={styles.memberName}>{member.firstName} {member.lastName}</h2>
-        <form onSubmit={this.handleSubmit}>
+        {/* <form onSubmit={this.handleSubmit}> */}
+        <form>
           <label className={styles.textInput}>
             First
             <input type="text" value={member.firstName || ""} placeholder="first name"
@@ -81,7 +94,8 @@ class MemberEdit extends Component {
             exclusions={member.exclusions}
             handleMemberChange={this.handleMemberChange}
           />
-          <input type="submit" className={styles.saveBtn} value="Save" />
+          
+          <Link to='/members'><button className={styles.saveButton} onClick={() => requestUpdateMember(member.id, member)}>Save</button></Link>
           <Link to='/members'><button className={styles.doneBtn} onClick={() => closeMember()}>Done</button></Link>
         </form>
       </div>
@@ -91,9 +105,11 @@ class MemberEdit extends Component {
 
 const mapStateToProps = (state) => {
   const openMemberId = selectors.getOpenMemberId(state)
+  log('MemberEdit.openMemberId', openMemberId, 'blue')
+
   const o = {
     member: selectors.getMember(state, openMemberId),
-    openMemberId: selectors.getOpenMemberId(state),
+    openMemberId: openMemberId,
     readRequestCreateMember: selectors.getRequest(state, 'api/createMember'),
     readRequestReadMembers: selectors.getRequest(state, 'api/getReadMembers'),
     roles: selectors.getRoles(state)

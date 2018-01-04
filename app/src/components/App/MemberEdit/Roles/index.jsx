@@ -39,6 +39,7 @@ class Roles extends Component {
     // log('exclusions','' , 'red')
     // this.state.exclusions.forEach((e) => log(e, '', 'blue'))
     // log('exclusions', '', 'red')
+    this.props.handleMemberChange('exclusions', exclusions)
 
   }
 
