@@ -16,31 +16,34 @@ class App extends Component {
   }
 
   render() {
-    // log('props', this.props, 'blue')
+    log('props', this.props, 'blue')
     return (
       <Router>
         <div className={styles.app}>
           <div className={styles.header}>
             <h1>Page</h1>
-            <Link to='/'><button className={styles.menuButton}>/</button></Link>
-            <Link to='/members'><button className={styles.menuButton}>/members</button></Link>
-            <Link to='/schedule'><button className={styles.menuButton}>/schedule</button></Link>
+            <Link to="/">
+              <button className={styles.menuButton}>/</button>
+            </Link>
+            <Link to="/members">
+              <button className={styles.menuButton}>/members</button>
+            </Link>
+            <Link to="/schedule">
+              <button className={styles.menuButton}>/schedule</button>
+            </Link>
             <h2>Actions</h2>
           </div>
-          <Route exact path='/schedule' component={Schedule} />
+          <Route exact path="/schedule" component={Schedule} />
           {/* <Route exact path='/' component={Schedule}/> */}
-          <Route exact path='/members' component={Members} />
-          <Route path='/members/member-edit/:action' component={MemberEdit} />
-          <Route path='/members/member-create' component={MemberEdit} />
+          <Route exact path="/members" component={Members} />
+          <Route path="/members/member-edit/:action" component={MemberEdit} />
+          <Route path="/members/member-create" component={MemberEdit} />
         </div>
       </Router>
     )
   }
-
 }
 
-const mapStateToProps = (state) => {
-
-}
+const mapStateToProps = state => {}
 
 export default connect(mapStateToProps, actionCreators)(App)

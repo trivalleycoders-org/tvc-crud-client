@@ -24,55 +24,55 @@ class Schedule extends Component {
   //   this.props.setSchedule(schedule)
   // }
 
-  render() {
 
+
+
+  render() {
     const { schedule, readScheduleRequest, members } = this.props
-    // log('members', members, 'blue')
+    // log('Schedule.render props', this.props, 'orange')
 
     // make sure we have the data before proceeding
     if (readScheduleRequest.status !== 'success') {
       return null
     }
-    // const memberSelectList = []
 
-    const renderList2 = schedule.map((r) => {
-      // log('r.memberId', typeof r.memberId)
+    // get roles, should have been passed in (?), but will extract them for now
 
-      const member = members.filter((m) => {
-        return m.id === r.memberId
-      })[0]
-      log('member.firstName', member.firstName, 'blue')
-      return (<ScheduleRow
-        key={r.roleId}
-        roleId={r.roleId}
-        roleName={r.roleName}
-        member={member}
-        selectMember={this.handleSelectMember}
-      />
-    )})
+    let roles = schedule.map((role) => ({ id: role.roleId, name: role.roleName }))
 
-    // ku.log('Schedule: scheduleList', scheduleList, 'blue')
+    // rendering title bar
+
+    const titles = ['Role', 'Member', 'Last Role', 'Comment', 'Contact']
+
+    const titleBar = (
+      <div className={styles.row}>
+        {titles.map((title, i) => (
+            <span key={i} className={[styles.memberDetail, styles.titleBar].join(' ')}>
+              {title}
+            </span>
+          )
+        )}
+      </div>
+    )
+
+    const renderRole = (role, members, i) =>
+      <ScheduleRow key={i} index={i} role={role} members={members} />
+
+    // Filtering out non-scheduleable members - is this necessary?
+    // Are they filtered out earlier?
+
+    const viableMembers = members.filter(member => (member.active && !member.exempt))
+
     return (
-      <div id='schedule' className={styles.schedule}>
-        <h1 className={styles.title}>Volunteer Schedule for [date] </h1>
-        <div className={styles.row}>
-          <div className={styles.memberDetail}>role</div>
-          <div className={styles.memberDetail}>member</div>
-          <div className={styles.memberDetail}>lastRole</div>
-          <div className={styles.memberDetail}>comment</div>
-          <div className={styles.memberDetail}>contact</div>
-        </div>
-        {renderList2}
-        {/* <button onClick={(e) => this.handleAutoSchedule(scheduleList, roles)}>
-          Auto Schedule
-        </button> */}
+      <div className='wrapper'>
+        {titleBar}
+        {roles.map((role, i) => renderRole(role, viableMembers, i))}
       </div>
     )
   }
-
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     schedule: selectors.getSchedule(state),
     members: selectors.getMembers(state),
