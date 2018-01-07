@@ -1,10 +1,7 @@
 // Member
 
 import React from 'react'
-import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-// import * as actionCreators from '../../../../store/actions'
-
 import styles from './style.css'
 
 const MemberRow = ({ memberId, firstName, lastName, email, phoneNumber, match }) => {

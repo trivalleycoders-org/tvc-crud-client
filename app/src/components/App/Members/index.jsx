@@ -2,7 +2,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import * as actionCreators from '../../../store/actions'
+import * as memberActions from '../../../store/actions/members-actions'
+import * as roleActions from '../../../store/actions/role-actions'
 import * as selectors from '../../../store/selectors'
 import MemberRow from './MemberRow'
 import { Table } from 'react-bootstrap'
@@ -15,6 +16,7 @@ class Members extends Component {
   render() {
 
     const { match, members, readRequestReadMembers, readRequestReadRoles } = this.props
+    log('props', this.props, 'red')
     if (readRequestReadMembers.status !== 'success' || readRequestReadRoles.status !== 'success' ) {
       return (
         <h1>Loading ... </h1>
@@ -54,6 +56,7 @@ class Members extends Component {
   }
 }
 
+const actionCreators = { ...memberActions, roleActions }
 const mapStateToProps = (state) => {
   const o = {
     members: selectors.getMembers(state),

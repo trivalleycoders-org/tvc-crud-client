@@ -3,7 +3,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import styles from './style.css'
-import * as actionCreators from '../../store/actions'
+import * as memberActions from '../../store/actions/members-actions'
+import * as roleActions from '../../store/actions/role-actions'
 import * as selectors from '../../store/selectors'
 import Members from './Members'
 import MemberEdit from './MemberEdit'
@@ -13,13 +14,19 @@ import { log } from '../../lib/ke-utils'
 class App extends Component {
   componentDidMount() {
     log('App.componentDidMount', '', 'pink')
+    log('memberActions', memberActions, 'pink')
     this.props.requestReadMembers()
     this.props.requestReadRoles()
   }
 
   render() {
     const { readRequestReadMembers, readRequestReadRoles } = this.props
-    if (readRequestReadMembers !== 'success' || readRequestReadRoles !== 'success')
+    if (readRequestReadMembers.status !== 'success' || readRequestReadRoles.status !== 'success') {
+      return (
+        <h1>Loading ... </h1>
+      )
+    }
+
     return (
       <Router>
         <div className={styles.app}>
@@ -39,6 +46,8 @@ class App extends Component {
   }
 
 }
+
+const actionCreators = { ...memberActions, ...roleActions}
 
 const mapStateToProps = (state) => {
   return {

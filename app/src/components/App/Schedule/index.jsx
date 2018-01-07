@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import styles from './style.css'
-import * as actionCreators from '../../../store/actions'
+import * as actionCreators from '../../../store/actions/schedule-actions'
 import * as selectors from '../../../store/selectors'
 import ScheduleRow from './ScheduleRow'
 import { log } from '../../../lib/ke-utils'

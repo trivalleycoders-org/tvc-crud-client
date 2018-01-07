@@ -3,18 +3,29 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import * as actionCreators from '../../../store/actions'
+import * as memberActions from '../../../store/actions/members-actions'
 import * as selectors from '../../../store/selectors'
 import Roles from './Roles'
 import styles from './style.css'
 import { log } from '../../../lib/ke-utils'
 
 class MemberEdit extends Component {
+  componentWillMount() {
+    log('MemberEdit.componentWillMount', '', 'pink')
+    log('id', this.props.match.params.id, 'blue')
+    this.props.openMember(this.props.match.params.id)
+  }
   componentDidMount() {
     log('MemberEdit.componentDidMount', '', 'pink')
-
+    // log('action', this.props.match.params.action, 'blue')
+    // log('id', this.props.match.params.id, 'blue')
     if (this.props.match.params.action === 'new') {
       /* if action */ this.props.requestCreateMember()
+    } else if (this.props.match.params.action === 'edit') {
+      // log('action === edit','','blue')
+      this.props.openMember(this.props.match.params.id)
+    } else {
+      log('ERROR: unknown match.param value', '', 'red')
     }
 
   }
@@ -38,12 +49,21 @@ class MemberEdit extends Component {
     // log('action', match.params.action, 'blue')
     // log('match', match, 'blue')
 
+    if (match.params.action === 'new') {
+      if (readRequestCreateMember.status !== 'success' || readRequestReadMembers.status !== 'success') {
+        return (
+          <h1>Loading ... </h1>
+        )
+      } else if (match.params.action === 'new') {
+        if (readRequestReadMembers.status !== 'success') {
+          return (
+            <h1>Loading ... </h1>
+          )
+        }
+      }
 
-    if (readRequestCreateMember.status !== 'success' || readRequestReadMembers.status !== 'success') {
-      return (
-        <h1>Loading ... </h1>
-      )
     }
+
     // log('MemberEdit.member', member, 'blue')
     // log('exclusions', member.exclusions, 'blue')
     return (
@@ -104,6 +124,7 @@ class MemberEdit extends Component {
 }
 
 const mapStateToProps = (state) => {
+  log('MemberEdit.mapStateToProps', '', 'pink')
   const openMemberId = selectors.getOpenMemberId(state)
   log('MemberEdit.openMemberId', openMemberId, 'blue')
 
@@ -117,4 +138,4 @@ const mapStateToProps = (state) => {
  return o
 }
 
-export default connect(mapStateToProps, actionCreators)(MemberEdit)
+export default connect(mapStateToProps, memberActions)(MemberEdit)
