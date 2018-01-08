@@ -1,19 +1,31 @@
-/* Schedule */
-.wrapper {
-  display: flex;
-  flex-flow: row;
-  justify-content: space-between;
-  width: 100%;
 
+.wrapper {
+  background-color: lightgray;
 }
 
 .row {
   display: flex;
-  flex-flow: row nowrap;
-  // border: 1px solid blue;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  min-height: 30px;
 }
+
 .memberDetail {
-  /*margin-left: 25px;*/
-  flex-grow: 10;
-  border: 1px solid blue;
+  flex-basis: 100%;
+  flex: 0 0 20%;
+  overflow-wrap: break-word;
+}
+
+.titleBar {
+  font-weight: bold;
+  font-size: 1.4em;
+}
+
+.schedule-option-excluded {
+  background-color: yellow;
+}
+
+.schedule-option-not-excluded {
+  background-color: white;
 }

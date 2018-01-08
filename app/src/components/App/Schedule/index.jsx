@@ -19,22 +19,16 @@ class Schedule extends Component {
     })
   }
 
-  // // could be used as reset
-  // handleAutoSchedule = (scheduleList, roles) => {
-  //   const schedule = makeSchedule(scheduleList, roles)
-  //   this.props.setSchedule(schedule)
-  // }
 
   render() {
-
-    const { schedule, readScheduleRequest, members } = this.props
-    // log('members', members, 'blue')
-
+    const { schedule, readScheduleRequest, members, roles } = this.props
+    // log('Schedule.render props', this.props, 'orange')
     // make sure we have the data before proceeding
     if (readScheduleRequest.status !== 'success') {
       return null
     }
 
+// me
     const renderList2 = schedule.map((r) => {
       // log('r.memberId', typeof r.memberId)
 
@@ -51,33 +45,45 @@ class Schedule extends Component {
               />
     )})
 
-    // ku.log('Schedule: scheduleList', scheduleList, 'blue')
+    // rendering title bar
+
+    const titles = ['Role', 'Member', 'Last Role', 'Comment', 'Contact']
+
+    const titleBar = (
+      <div className={styles.row}>
+        {titles.map((title, i) => (
+          <span key={i} className={[styles.memberDetail, styles.titleBar].join(' ')}>
+            {title}
+          </span>
+        )
+        )}
+      </div>
+    )
+
+    const renderRole = (role, members, i) =>
+      <ScheduleRow key={i} index={i} role={role} members={members} />
+
+    // Filtering out non-scheduleable members - is this necessary?
+    // Are they filtered out earlier?
+
+    const viableMembers = members.filter(member => (member.active && !member.exempt))
+
     return (
-      <div id='schedule' className={styles.schedule}>
-        <h1 className={styles.title}>Volunteer Schedule for [date] </h1>
-        <div className={styles.row}>
-          <div className={styles.memberDetail}>role</div>
-          <div className={styles.memberDetail}>member</div>
-          <div className={styles.memberDetail}>lastRole</div>
-          <div className={styles.memberDetail}>comment</div>
-          <div className={styles.memberDetail}>contact</div>
-        </div>
-        {renderList2}
-        {/* <button onClick={(e) => this.handleAutoSchedule(scheduleList, roles)}>
-          Auto Schedule
-        </button> */}
+      <div className='wrapper'>
+        {titleBar}
+        {roles.map((role, i) => renderRole(role, viableMembers, i))}
       </div>
     )
   }
-
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     schedule: selectors.getSchedule(state),
     members: selectors.getMembers(state),
     // currently not using?? memberIdsByLastRoleDate: selectors.getMemberIdsByLastRoleDate(state),
-    readScheduleRequest: selectors.getRequest(state, 'api/getReadSchedule')
+    readScheduleRequest: selectors.getRequest(state, 'api/getReadSchedule'),
+    roles: selectors.getRoles(state),
   }
 }
 export default connect(mapStateToProps, actionCreators)(Schedule)

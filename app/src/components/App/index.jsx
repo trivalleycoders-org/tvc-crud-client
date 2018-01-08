@@ -32,9 +32,15 @@ class App extends Component {
         <div className={styles.app}>
           <div className={styles.header}>
             <h1>Page</h1>
-            <Link to='/'><button className={styles.menuButton}>/</button></Link>
-            <Link to='/members'><button className={styles.menuButton}>/members</button></Link>
-            <Link to='/schedule'><button className={styles.menuButton}>/schedule</button></Link>
+            <Link to="/">
+              <button className={styles.menuButton}>/</button>
+            </Link>
+            <Link to="/members">
+              <button className={styles.menuButton}>/members</button>
+            </Link>
+            <Link to="/schedule">
+              <button className={styles.menuButton}>/schedule</button>
+            </Link>
             <h2>Actions</h2>
           </div>
           <Route exact path='/schedule' component={Schedule} />
@@ -44,7 +50,6 @@ class App extends Component {
       </Router>
     )
   }
-
 }
 
 const actionCreators = { ...memberActions, ...roleActions}
