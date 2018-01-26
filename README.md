@@ -2,6 +2,11 @@
 
 Working through how we will be doing CRUD, API, Express, deployment and more.
 
+## Setup
+- cd app
+- yarn install
+- yarn start
+
 
 ## Logging
 - Either use ke-utils and the conventions below to log to the console or remember to remove you logging before pushing your code. I know, it is hard. However, searching through the project to find an undesired log can be time consuming.
